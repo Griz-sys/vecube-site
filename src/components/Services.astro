@@ -1,28 +1,86 @@
 ---
 import { services } from "../data/content";
-// small colour moment per pillar (Bark-style colour-coded columns)
-const accents = ["#1f43ff", "#7c3aed", "#0ea5a3", "#f59e0b"];
 ---
 
-<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-  {
-    services.map((s, i) => (
-      <div>
-        <div class="h-[3px] w-full" style={`background:${accents[i % accents.length]}`} />
-        <div class="mt-4 flex items-baseline gap-3">
-          <span class="font-mono text-xs text-grey-40">{s.num}</span>
-          <h3 class="h-display text-[clamp(1.6rem,2.4vw,2.4rem)]">{s.name}</h3>
-        </div>
-        <p class="mt-3 max-w-[34ch] text-sm leading-snug text-grey-60">{s.blurb}</p>
-        <ul class="mt-5 border-t border-grey-10">
-          {s.items.map((item) => (
-            <li class="flex items-start gap-2 border-b border-grey-10 py-2.5 text-[0.95rem] leading-tight">
-              <span class="mt-0.5 text-blue">↳</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))
-  }
+<!--
+  Interactive service list (light mode).
+  Hover / tap a name on the right → its preview shows on the left.
+  Driven by a plain vanilla <script> (no React island), so it works
+  everywhere and still shows the first item if JS is disabled.
+-->
+<div class="svc grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8" id="svc">
+  <!-- LEFT: preview panel -->
+  <div class="md:col-span-4">
+    <div class="svc-prev-wrap grid">
+      {
+        services.map((s, i) => (
+          <div class={`svc-prev ${i === 0 ? "is-active" : ""}`} data-prev={i}>
+            <div class="relative flex aspect-square items-center justify-center overflow-hidden rounded-[2px] border border-grey-10 bg-grey-05">
+              <span class="font-mono text-xs uppercase tracking-[0.14em] text-grey-40">
+                ◳ {s.name}
+              </span>
+              {s.image && (
+                <img
+                  src={s.image}
+                  alt={s.name}
+                  onerror="this.remove()"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
+            </div>
+            <p class="mt-4 font-mono text-xs uppercase tracking-[0.12em] text-grey-40">
+              {s.num} · {s.name}
+            </p>
+            <p class="mt-2 text-lg font-bold leading-snug text-ink">{s.blurb}</p>
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {s.items.map((item) => (
+                <li class="rounded-full bg-grey-05 px-3 py-1.5 font-mono text-[0.68rem] uppercase tracking-[0.04em] text-grey-60">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- RIGHT: the big list -->
+  <div class="md:col-span-8">
+    <ul class="border-t border-grey-10">
+      {
+        services.map((s, i) => (
+          <li>
+            <button
+              type="button"
+              class={`svc-row ${i === 0 ? "is-active" : ""}`}
+              data-row={i}
+              aria-label={s.name}
+            >
+              <span class="svc-name h-display">{s.name}</span>
+              <span class="svc-num font-mono">{`{ ${s.num} }`}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </div>
+
+<script>
+  const root = document.getElementById("svc");
+  if (root) {
+    const rows = Array.from(root.querySelectorAll<HTMLElement>("[data-row]"));
+    const prevs = Array.from(root.querySelectorAll<HTMLElement>("[data-prev]"));
+    const setActive = (idx: string) => {
+      rows.forEach((r) => r.classList.toggle("is-active", r.dataset.row === idx));
+      prevs.forEach((p) => p.classList.toggle("is-active", p.dataset.prev === idx));
+    };
+    rows.forEach((r) => {
+      const idx = r.dataset.row!;
+      r.addEventListener("mouseenter", () => setActive(idx));
+      r.addEventListener("focus", () => setActive(idx));
+      r.addEventListener("click", () => setActive(idx));
+    });
+  }
+</script>

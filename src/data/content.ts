@@ -45,12 +45,14 @@ export type ServiceGroup = {
   name: string;
   blurb: string;
   items: string[];
+  image?: string;
 };
 
 export const services: ServiceGroup[] = [
   {
     num: "01",
     name: "Brand",
+    image: "/images/work/amara.png",
     blurb:
       "Identity, story and assets that make ambitious brands impossible to ignore.",
     items: [
@@ -110,36 +112,59 @@ export const services: ServiceGroup[] = [
 ];
 
 export type CaseStudy = {
-  stat: string;
-  statLabel: string;
   name: string;
+  role?: string; // short "what we did" line
   desc: string;
   tags: string[];
-  // optional media, drop files into /public/images
+  // drop the logo/case image into /public/images/work/ with this path
   image?: string;
+  // brand colour used for the placeholder tile until the image is added
+  color?: string;
+  // set false when the placeholder colour is light (dark text)
+  light?: boolean;
+  soon?: boolean;
 };
 
 export const work: CaseStudy[] = [
   {
-    stat: "400%",
-    statLabel: "YoY new customer revenue",
-    name: "Free Soul",
-    desc: "Keeping Free Soul ahead.",
-    tags: ["Performance", "Data", "Creative"],
+    name: "Amara",
+    role: "Brand, Assets & Socials",
+    desc: "Boosting customer engagement through social media.",
+    tags: ["Performance Marketing", "Branding"],
+    image: "/images/work/amara.png",
+    color: "#7a1f3d",
   },
   {
-    stat: "29%",
-    statLabel: "Efficiency growth",
-    name: "Chilly's",
-    desc: "Revival of a sustainable icon.",
-    tags: ["Creative", "Performance", "Data"],
+    name: "TrackEdu",
+    role: "Service & Lead Operations Platform",
+    desc: "An operations portal: role-based lead management, built for clarity at scale.",
+    tags: ["Development"],
+    image: "/images/work/trackedu.png",
+    color: "#0b1b3a",
   },
   {
-    stat: "144",
-    statLabel: "Assets · 1 shoot day",
-    name: "Gorillas",
-    desc: "High-performing ad creative at scale.",
-    tags: ["Creative"],
+    name: "FitPaisa",
+    role: "Design & Ads",
+    desc: "Launching FitPaisa's MVP from the ground up — branding, website, onboarding and referral tools.",
+    tags: ["Branding", "Performance Marketing", "Web design", "Development"],
+    image: "/images/work/fitpaisa.png",
+    color: "#16305c",
+  },
+  {
+    name: "The Wedding Company",
+    role: "Design",
+    desc: "Rebranding TWC as weddings experts and designing their hero products.",
+    tags: ["Branding", "Web design"],
+    image: "/images/work/the-wedding-company.png",
+    color: "#c39a4f",
+  },
+  {
+    name: "Global Mobility Services",
+    desc: "Coming soon.",
+    tags: ["Web design", "Branding", "Development"],
+    image: "/images/work/gms.png",
+    color: "#4a9e46",
+    soon: true,
   },
 ];
 
