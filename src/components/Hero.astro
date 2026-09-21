@@ -2,40 +2,37 @@
 import { hero, site } from "../data/content";
 ---
 
-<section class="pt-8 pb-12 md:pt-10 md:pb-16">
-  <div class="wrap">
-    <!-- SEO / a11y: real heading kept but visually hidden (design uses the image) -->
-    <h1 class="sr-only">{site.name} — {site.tagline}</h1>
+<!-- Full-bleed hero: image fills the viewport, nav floats on top of it. -->
+<section class="-mt-24">
+  <h1 class="sr-only">{site.name} — {site.tagline}</h1>
 
-    <!-- top label row -->
-    <div class="flex items-center justify-between">
+  <div class="relative h-[100svh] min-h-[600px] w-full overflow-hidden">
+    <img
+      src="/images/banner.webp"
+      alt="Vecube — cinematic paid-media studio for global ecommerce"
+      width="2000"
+      height="1091"
+      fetchpriority="high"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+
+    <!-- kicker overlay, clears the floating nav -->
+    <div class="wrap absolute inset-x-0 top-28 z-10 flex items-center justify-between">
       <span class="label"><span class="dot"></span> {hero.kicker}</span>
-      <span class="label">{`{ 01 }`} &nbsp;—&nbsp; {hero.issue}</span>
+      <span class="label hidden sm:inline-flex">{`{ 01 }`} &nbsp;—&nbsp; {hero.issue}</span>
     </div>
 
-    <!-- BANNER IMAGE with overlaid controls -->
-    <figure class="relative mt-6 overflow-hidden rounded-[2px]">
-      <img
-        src="/images/banner.webp"
-        alt="Vecube — cinematic paid-media studio for global ecommerce"
-        width="2000"
-        height="1091"
-        fetchpriority="high"
-        class="w-full h-auto"
-      />
+    <!-- sticker -->
+    <span class="sticker absolute right-5 top-40 z-10 md:right-10">{hero.sticker}</span>
 
-      <!-- sticker overlay: top-right -->
-      <span class="sticker absolute right-4 top-4 md:right-8 md:top-8">{hero.sticker}</span>
-
-      <!-- actions overlay: bottom-right -->
-      <div class="absolute bottom-4 right-4 flex flex-wrap justify-end gap-3 md:bottom-8 md:right-8">
-        <a class="btn btn-primary shadow-lg" href="/contact">
-          Start a project <span class="arw">→</span>
-        </a>
-        <a class="btn btn-secondary bg-white shadow-lg" href="/#work">
-          See our work <span class="arw">→</span>
-        </a>
-      </div>
-    </figure>
+    <!-- actions, bottom-right -->
+    <div class="wrap absolute inset-x-0 bottom-8 z-10 flex flex-wrap justify-end gap-3">
+      <a class="btn btn-primary shadow-lg" href="/contact">
+        Start a project <span class="arw">→</span>
+      </a>
+      <a class="btn btn-secondary bg-white shadow-lg" href="/#work">
+        See our work <span class="arw">→</span>
+      </a>
+    </div>
   </div>
 </section>

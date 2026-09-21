@@ -43,7 +43,7 @@ export default function MobileNav({ nav, email }: Props) {
       </button>
 
       {open && (
-        <div className="fixed inset-0 top-[72px] z-40 bg-paper">
+        <div className="fixed inset-0 top-24 z-40 bg-paper">
           <nav className="wrap flex flex-col gap-2 pt-8">
             {nav.map((item) => (
               <a
