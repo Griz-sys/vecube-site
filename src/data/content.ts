@@ -52,7 +52,7 @@ export const services: ServiceGroup[] = [
   {
     num: "01",
     name: "Brand",
-    image: "/images/work/amara.png",
+    image: "/images/work/amara.avif",
     blurb:
       "Identity, story and assets that make ambitious brands impossible to ignore.",
     items: [
@@ -131,7 +131,7 @@ export const work: CaseStudy[] = [
     role: "Brand, Assets & Socials",
     desc: "Boosting customer engagement through social media.",
     tags: ["Performance Marketing", "Branding"],
-    image: "/images/work/amara.png",
+    image: "/images/work/amara.avif",
     color: "#7a1f3d",
   },
   {
@@ -139,7 +139,7 @@ export const work: CaseStudy[] = [
     role: "Service & Lead Operations Platform",
     desc: "An operations portal: role-based lead management, built for clarity at scale.",
     tags: ["Development"],
-    image: "/images/work/trackedu.png",
+    image: "/images/work/trackedu.avif",
     color: "#0b1b3a",
   },
   {
@@ -147,7 +147,7 @@ export const work: CaseStudy[] = [
     role: "Design & Ads",
     desc: "Launching FitPaisa's MVP from the ground up — branding, website, onboarding and referral tools.",
     tags: ["Branding", "Performance Marketing", "Web design", "Development"],
-    image: "/images/work/fitpaisa.png",
+    image: "/images/work/fitpaisa.avif",
     color: "#16305c",
   },
   {
@@ -155,14 +155,14 @@ export const work: CaseStudy[] = [
     role: "Design",
     desc: "Rebranding TWC as weddings experts and designing their hero products.",
     tags: ["Branding", "Web design"],
-    image: "/images/work/the-wedding-company.png",
+    image: "/images/work/the-wedding-company.avif",
     color: "#c39a4f",
   },
   {
     name: "Global Mobility Services",
     desc: "Coming soon.",
     tags: ["Web design", "Branding", "Development"],
-    image: "/images/work/gms.png",
+    image: "/images/work/gms.avif",
     color: "#4a9e46",
     soon: true,
   },
