@@ -1,0 +1,39 @@
+---
+import { site, nav } from "../data/content";
+const year = new Date().getFullYear();
+---
+
+<!-- 08 · Bottom tile — giant sign-off + footer (the one dark moment) -->
+<section class="bg-ink text-white">
+  <div class="wrap py-20 text-center md:py-24">
+    <span class="label !text-white/50">{`{ 07 }`} — Let's go</span>
+    <h2 class="h-display mx-auto mt-6 text-[clamp(3.5rem,13vw,13rem)]">
+      Let's make<br />s<span class="text-blue">o</span>me noise.
+    </h2>
+    <a
+      class="btn mt-9 bg-white !text-blue hover:bg-accent hover:!text-ink"
+      style="padding:0.9rem 1.6rem;height:3.375rem;"
+      href="/contact"
+    >
+      Get in touch <span class="arw">→</span>
+    </a>
+  </div>
+
+  <footer class="wrap pb-14">
+    <div class="h-px w-full bg-white/15"></div>
+    <div class="flex flex-wrap items-center justify-between gap-6 pt-10">
+      <a href="/" class="h-display text-2xl">VE<span class="text-blue">CUBE</span></a>
+      <nav class="flex flex-wrap gap-8">
+        {nav.map((item) => (
+          <a href={item.href} class="text-sm text-white/60 transition-opacity hover:text-white">
+            {item.label}
+          </a>
+        ))}
+        <a href={`mailto:${site.email}`} class="text-sm text-white/60 transition-opacity hover:text-white">
+          {site.email}
+        </a>
+      </nav>
+      <span class="font-mono text-xs text-white/50">© {year} {site.name}</span>
+    </div>
+  </footer>
+</section>

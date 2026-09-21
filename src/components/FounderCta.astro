@@ -1,0 +1,24 @@
+---
+import { founder } from "../data/content";
+---
+
+<!-- Founder note — sits right after the video -->
+<section class="pb-8 md:pb-10">
+  <div class="wrap">
+    <div class="flex flex-wrap items-center gap-6 rounded-[2px] bg-accent px-6 py-6 md:px-8 md:py-7">
+      <div
+        class="h-16 w-16 flex-none rounded-full"
+        style="background:linear-gradient(135deg,#1f43ff,#060a2e)"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="flex-1 min-w-[220px]">
+        <p class="text-lg font-bold leading-tight md:text-xl">
+          Hey 👋 I'm <span class="text-blue">{founder.name}</span>, {founder.role}.
+        </p>
+        <p class="mt-1 text-black/60">{founder.message}</p>
+      </div>
+      <a class="btn btn-primary" href="/contact">{founder.cta} <span class="arw">→</span></a>
+    </div>
+  </div>
+</section>

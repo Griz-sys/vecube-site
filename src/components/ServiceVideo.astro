@@ -1,0 +1,37 @@
+---
+// Section stays white; only the video frame is dark (keeps the page light).
+---
+
+<section class="py-12 md:py-16">
+  <div class="wrap">
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-5">
+      <div>
+        <span class="label"><span class="dot"></span> The film</span>
+        <h2 class="h-display mt-4 text-[clamp(2.5rem,6vw,5.5rem)]">
+          This is how<br />we make noise.
+        </h2>
+      </div>
+      <span class="label">{`{ 02 }`}</span>
+    </div>
+
+    <!-- SERVICE VIDEO — replace with your <video> or embed -->
+    <div
+      class="relative grain aspect-[16/9] w-full overflow-hidden rounded-[2px] flex items-center justify-center"
+      style="background:linear-gradient(135deg,#0b1450,#05061c)"
+    >
+      <button
+        aria-label="Play service video"
+        class="group relative z-[2] flex h-24 w-24 items-center justify-center rounded-full border-2 border-white/40 bg-white/10 transition duration-200 hover:scale-105 hover:border-blue hover:bg-blue"
+      >
+        <svg width="24" height="28" viewBox="0 0 26 30" fill="#fff" class="ml-1">
+          <path d="M0 0l26 15L0 30z"></path>
+        </svg>
+      </button>
+      <span
+        class="absolute bottom-4 left-5 z-[2] font-mono text-xs uppercase tracking-[0.12em] text-white/55"
+      >
+        ◳ Service video goes here — 60s
+      </span>
+    </div>
+  </div>
+</section>

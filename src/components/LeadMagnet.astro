@@ -1,0 +1,26 @@
+---
+import { leadMagnet } from "../data/content";
+---
+
+<section id="about" class="py-12 md:py-16">
+  <div class="wrap">
+    <!-- lead magnet: download the deck -->
+    <div class="relative overflow-hidden rounded-[2px] border border-grey-10 bg-grey-05 p-8 md:p-12">
+      <span class="sticker sticker-blue absolute -top-3 right-8">{leadMagnet.sticker}</span>
+      <div class="grid grid-cols-1 items-end gap-8 md:grid-cols-12">
+        <div class="md:col-span-8">
+          <span class="label"><span class="dot"></span> Lead magnet · {`{ 06 }`}</span>
+          <h3 class="h-display mt-4 text-[clamp(1.8rem,4vw,3.2rem)]">
+            {leadMagnet.title}<br /><span class="text-blue">{leadMagnet.titleAccent}</span>
+          </h3>
+          <p class="mt-4 max-w-[52ch] text-grey-60">{leadMagnet.blurb}</p>
+        </div>
+        <div class="md:col-span-4 md:text-right">
+          <a class="btn btn-primary" href="/contact">
+            {leadMagnet.cta} <span class="arw">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

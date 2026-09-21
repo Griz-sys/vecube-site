@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import ServiceVideo from "../components/ServiceVideo.astro";
+import FounderCta from "../components/FounderCta.astro";
+import Clients from "../components/Clients.astro";
+import Services from "../components/Services.astro";
+import Work from "../components/Work.astro";
+import LeadMagnet from "../components/LeadMagnet.astro";
+---
+
+<Layout>
+  <!-- 01 --><Hero />
+  <!-- 02 --><ServiceVideo />
+  <!-- founder note --><FounderCta />
+  <!-- 03 --><Clients />
+
+  <!-- 04 · Service -->
+  <section id="services" class="py-12 md:py-16">
+    <div class="wrap">
+      <div class="mb-14">
+        <span class="label"><span class="dot"></span> What we do · {`{ 04 }`}</span>
+        <h2 class="h-display mt-4 text-[clamp(2.75rem,7vw,7rem)]">Services.</h2>
+      </div>
+      <Services />
+    </div>
+  </section>
+
+  <!-- 06 --><Work />
+  <!-- 07 --><LeadMagnet />
+  <!-- 08 (bottom tile) lives in the shared Footer -->
+</Layout>

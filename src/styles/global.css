@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/* ============================================================
+   VECUBE — design tokens (Tailwind v4 @theme)
+   Swap the brand hex values below for the official palette.
+   ============================================================ */
+@theme {
+  /* colour — white dominant, blue as the single accent */
+  --color-ink: #0a0a0b;
+  --color-paper: #ffffff;
+  --color-grey-05: #f6f6f7;
+  --color-grey-10: #ececee;
+  --color-grey-20: #dcdce0;
+  --color-grey-40: #9a9aa2;
+  --color-grey-60: #6b6b73;
+  --color-blue: #1f43ff;      /* brand blue — SWAP */
+  --color-blue-dk: #0a1e8f;
+  --color-accent: #e8fe5a;    /* small-moment pop — SWAP */
+
+  /* type */
+  --font-display: "Archivo", "Arial Narrow", sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  /* section rhythm */
+  --spacing-section: 10rem;   /* 160px */
+
+  /* motion */
+  --ease-brand: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ---------- base ---------- */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- reusable editorial pieces ---------- */
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 90rem; /* 1440px */
+    margin-inline: auto;
+    padding-inline: 3rem;
+  }
+
+  .h-display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-grey-60);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .label .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-blue);
+  }
+
+  /* buttons — all pill-shaped */
+  .btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 999px;
+    cursor: pointer;
+    border: 0;
+    transition:
+      transform 0.2s var(--ease-brand),
+      background 0.2s var(--ease-brand),
+      color 0.2s var(--ease-brand);
+  }
+  .btn .arw {
+    transition: transform 0.2s var(--ease-brand);
+  }
+  .btn:hover .arw {
+    transform: translateX(4px);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn-primary {
+    background: var(--color-blue);
+    color: #fff;
+    padding: 0.9rem 1.6rem;
+    height: 3.375rem;
+  }
+  .btn-primary:hover {
+    background: var(--color-blue-dk);
+  }
+  .btn-secondary {
+    background: var(--color-grey-05);
+    color: var(--color-ink);
+    padding: 0.8rem 1.35rem;
+  }
+  .btn-secondary .arw {
+    color: var(--color-blue);
+  }
+  .btn-secondary:hover {
+    background: var(--color-grey-10);
+  }
+  .btn-tertiary {
+    background: transparent;
+    color: inherit;
+    padding: 0.5rem 0.25rem;
+  }
+  .btn-tertiary .arw {
+    color: var(--color-blue);
+  }
+  .btn-tertiary .txt {
+    position: relative;
+  }
+  .btn-tertiary .txt::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 1.5px;
+    background: currentColor;
+    transition: width 0.2s var(--ease-brand);
+  }
+  .btn-tertiary:hover .txt::after {
+    width: 100%;
+  }
+
+  /* rotated print sticker */
+  .sticker {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--color-accent);
+    color: var(--color-ink);
+    padding: 0.5rem 0.85rem;
+    border-radius: 2px;
+    display: inline-block;
+    transform: rotate(-5deg);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  }
+  .sticker-blue {
+    background: var(--color-blue);
+    color: #fff;
+  }
+
+  /* faint grain used inside dark frames */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* seamless client marquee */
+@keyframes vecube-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: vecube-marquee 40s linear infinite;
+}
+/* second row runs the other way + a touch slower for a parallax feel */
+.marquee-track--rev {
+  animation-direction: reverse;
+}
+.marquee-track--slow {
+  animation-duration: 52s;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+  }
+}
+
+/* responsive section + gutters */
+@media (max-width: 900px) {
+  .wrap {
+    padding-inline: 1.25rem;
+  }
+}

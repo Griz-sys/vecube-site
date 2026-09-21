@@ -1,0 +1,48 @@
+---
+import { clients } from "../data/content";
+// row A left-to-right list, row B reversed — each duplicated for a seamless loop
+const rowA = [...clients, ...clients];
+const reversed = [...clients].reverse();
+const rowB = [...reversed, ...reversed];
+---
+
+<section id="clients" class="bg-ink py-14 md:py-20 overflow-hidden">
+  <div class="wrap mb-8 flex flex-wrap items-center justify-between gap-4">
+    <span class="label !text-white/90">
+      <span class="dot" style="background:#3ddc84"></span> Clients · {`{ 03 }`}
+    </span>
+    <h3 class="h-display text-white text-[clamp(1.2rem,2.6vw,2rem)]">
+      Leading ecommerce brands &amp; retailers.
+    </h3>
+  </div>
+
+  <div class="marquee flex flex-col gap-4">
+    <!-- row 1 → moves left -->
+    <div class="marquee-track gap-4">
+      {
+        rowA.map((name, i) => (
+          <div
+            class="flex h-24 w-52 flex-none items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] px-4 text-center h-display text-lg text-white/85 md:h-28 md:w-56"
+            aria-hidden={i >= clients.length ? "true" : undefined}
+          >
+            {name}
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- row 2 → moves right (opposite) -->
+    <div class="marquee-track marquee-track--rev marquee-track--slow gap-4">
+      {
+        rowB.map((name, i) => (
+          <div
+            class="flex h-24 w-52 flex-none items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] px-4 text-center h-display text-lg text-white/85 md:h-28 md:w-56"
+            aria-hidden={i >= clients.length ? "true" : undefined}
+          >
+            {name}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
