@@ -1,39 +1,118 @@
 ---
-import { site, nav } from "../data/content";
+import { site, contactCta, footer } from "../data/content";
 const year = new Date().getFullYear();
 ---
 
-<!-- 08 · Bottom tile — giant sign-off + footer (the one dark moment) -->
-<section class="bg-ink text-white">
-  <div class="wrap py-20 text-center md:py-24">
-    <span class="label !text-white/50">{`{ 07 }`} — Let's go</span>
-    <h2 class="h-display mx-auto mt-6 text-[clamp(3.5rem,13vw,13rem)]">
-      Let's make<br />s<span class="text-blue">o</span>me noise.
-    </h2>
-    <a
-      class="btn mt-9 bg-white !text-blue hover:bg-accent hover:!text-ink"
-      style="padding:0.9rem 1.6rem;height:3.375rem;"
-      href="/contact"
-    >
-      Get in touch <span class="arw">→</span>
-    </a>
-  </div>
-
-  <footer class="wrap pb-14">
-    <div class="h-px w-full bg-white/15"></div>
-    <div class="flex flex-wrap items-center justify-between gap-6 pt-10">
-      <a href="/" class="h-display text-2xl">VE<span class="text-blue">CUBE</span></a>
-      <nav class="flex flex-wrap gap-8">
-        {nav.map((item) => (
-          <a href={item.href} class="text-sm text-white/60 transition-opacity hover:text-white">
-            {item.label}
-          </a>
-        ))}
-        <a href={`mailto:${site.email}`} class="text-sm text-white/60 transition-opacity hover:text-white">
-          {site.email}
-        </a>
-      </nav>
-      <span class="font-mono text-xs text-white/50">© {year} {site.name}</span>
+<!-- ============ Contact CTA (dark) ============ -->
+<section class="grain relative overflow-hidden bg-ink text-white">
+  <div class="wrap relative z-10 py-20 md:py-28">
+    <div class="flex justify-end">
+      <span class="label !text-white/70">⌐ {contactCta.kicker}</span>
     </div>
-  </footer>
+
+    <h2 class="h-display normal-case mt-6 text-[clamp(2.75rem,8vw,7rem)]">
+      {contactCta.heading}
+    </h2>
+
+    <div class="mt-14 grid grid-cols-1 gap-10 md:grid-cols-12">
+      <p class="text-lg leading-snug text-white/70 md:col-span-4">
+        {contactCta.blurb}
+      </p>
+
+      <form
+        class="flex flex-col gap-7 md:col-span-7 md:col-start-6"
+        onsubmit="return false;"
+      >
+        <input class="field-dark" type="text" placeholder="Name *" required />
+        <input class="field-dark" type="email" placeholder="E-mail *" required />
+        <input
+          class="field-dark"
+          type="text"
+          placeholder="Message (Tell us about your project)"
+        />
+        <button type="submit" class="btn btn-tertiary mt-2 self-start !text-white">
+          <span class="arw">↳</span> <span class="txt">Get in touch</span>
+        </button>
+      </form>
+    </div>
+  </div>
 </section>
+
+<!-- ============ Footer (light) ============ -->
+<footer class="bg-grey-05 text-ink">
+  <div class="wrap py-16 md:py-20">
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
+      <!-- brand -->
+      <div class="md:col-span-3">
+        <a href="/" class="h-display text-2xl">VE<span class="text-blue">CUBE</span></a>
+      </div>
+
+      <!-- newsletter -->
+      <div class="md:col-span-6">
+        <h3 class="h-display normal-case text-[clamp(2rem,4vw,3.25rem)]">
+          {footer.newsletterHeading}
+        </h3>
+        <form
+          class="mt-6 flex items-center gap-3 border-b-2 border-grey-20 pb-2"
+          onsubmit="return false;"
+        >
+          <input
+            type="email"
+            placeholder="E-mail"
+            class="w-full flex-1 bg-transparent text-base outline-none placeholder:text-grey-40"
+          />
+          <button
+            type="submit"
+            aria-label="Subscribe"
+            class="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-blue text-white transition hover:bg-blue-dk active:scale-95"
+          >
+            →
+          </button>
+        </form>
+      </div>
+
+      <!-- links -->
+      <nav class="flex flex-col gap-2 md:col-span-3">
+        {
+          footer.links.map((l) => (
+            <a href={l.href} class="w-fit text-[0.95rem] text-grey-60 transition-colors hover:text-ink">
+              {l.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    <!-- contact details + about -->
+    <div class="mt-16 grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-7">
+        <p class="font-mono text-sm text-grey-60">{footer.phone}</p>
+        <div class="mt-5 flex flex-col gap-3">
+          {
+            footer.emails.map((email) => (
+              <a
+                href={`mailto:${email}`}
+                class="group w-fit text-[clamp(1.4rem,2.6vw,2rem)] font-bold leading-none tracking-tight"
+              >
+                <span class="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_2px] bg-[position:0_100%] bg-no-repeat transition-[background-size] duration-200 group-hover:bg-[length:100%_2px]">
+                  {email}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <div class="md:col-span-4 md:col-start-9">
+        <p class="max-w-[30ch] text-sm leading-relaxed text-grey-40 md:ml-auto md:text-right">
+          {footer.about}
+        </p>
+      </div>
+    </div>
+
+    <!-- bottom line -->
+    <div class="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-grey-10 pt-6">
+      <span class="font-mono text-xs text-grey-40">© {year} {site.name}</span>
+      <span class="font-mono text-xs text-grey-40">{site.location} · {site.email}</span>
+    </div>
+  </div>
+</footer>

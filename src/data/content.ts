@@ -186,3 +186,29 @@ export const founder = {
   message: "Let's talk about your growth.",
   cta: "Book a call",
 };
+
+export const contactCta = {
+  kicker: "Contact us",
+  heading: "Let's bring your vision to life",
+  blurb: "Have an idea or a question? Reach out anytime. We're excited to collaborate.",
+};
+
+export const footer = {
+  newsletterHeading: "Stay connected",
+  phone: "+91 99995 03168",
+  emails: [
+    "shubhankar@vecube.club",
+    "vedanshi@vecube.club",
+    "saksham@vecube.club",
+  ],
+  about:
+    "Vecube is a partnership studio designed to be the operational backbone for early-stage startups.",
+  links: [
+    { label: "About", href: "/about" },
+    { label: "Projects", href: "/#work" },
+    { label: "Contact", href: "/contact" },
+    { label: "Privacy Policy", href: "#" },
+    { label: "Terms of Service", href: "#" },
+    { label: "LinkedIn", href: "#" },
+  ],
+};

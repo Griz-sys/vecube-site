@@ -250,6 +250,26 @@ body {
   border-color: var(--color-blue);
 }
 
+/* dark contact form fields (footer contact CTA) */
+.field-dark {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.85rem 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: #fff;
+  transition: border-color 0.2s var(--ease-brand);
+}
+.field-dark::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+.field-dark:focus {
+  outline: none;
+  border-color: #fff;
+}
+
 /* seamless client marquee */
 @keyframes vecube-marquee {
   to {
