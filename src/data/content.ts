@@ -52,7 +52,7 @@ export const services: ServiceGroup[] = [
   {
     num: "01",
     name: "Brand",
-    image: "/images/work/amara.avif",
+    image: "/images/services/brand.avif",
     blurb:
       "Identity, story and assets that make ambitious brands impossible to ignore.",
     items: [
@@ -68,6 +68,7 @@ export const services: ServiceGroup[] = [
   {
     num: "02",
     name: "Media",
+    image: "/images/services/media.avif",
     blurb:
       "Full-funnel performance and lifecycle marketing that turns spend into predictable growth.",
     items: [
@@ -83,6 +84,7 @@ export const services: ServiceGroup[] = [
   {
     num: "03",
     name: "Dev",
+    image: "/images/services/dev.avif",
     blurb:
       "The engineering behind the growth — sites, apps, platforms and the tools that run them.",
     items: [
@@ -97,6 +99,7 @@ export const services: ServiceGroup[] = [
   {
     num: "04",
     name: "Venture",
+    image: "/images/services/venture.avif",
     blurb:
       "Strategy for founders and operators — from GTM and product-market fit to pricing and P&L.",
     items: [
