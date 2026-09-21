@@ -15,7 +15,7 @@ import { services } from "../data/content";
       {
         services.map((s, i) => (
           <div class={`svc-prev ${i === 0 ? "is-active" : ""}`} data-prev={i}>
-            <div class="relative flex aspect-square items-center justify-center overflow-hidden rounded-[2px] border border-grey-10 bg-grey-05">
+            <div class="relative flex aspect-[5/4] w-full max-w-[300px] items-center justify-center overflow-hidden rounded-[2px] border border-grey-10 bg-grey-05">
               <span class="font-mono text-xs uppercase tracking-[0.14em] text-grey-40">
                 ◳ {s.name}
               </span>
@@ -33,7 +33,7 @@ import { services } from "../data/content";
             </p>
             <p class="mt-2 text-lg font-bold leading-snug text-ink">{s.blurb}</p>
             <ul class="mt-4 flex flex-wrap gap-2">
-              {s.items.map((item) => (
+              {s.items.slice(0, 4).map((item) => (
                 <li class="rounded-full bg-grey-05 px-3 py-1.5 font-mono text-[0.68rem] uppercase tracking-[0.04em] text-grey-60">
                   {item}
                 </li>
@@ -46,11 +46,11 @@ import { services } from "../data/content";
   </div>
 
   <!-- RIGHT: the big list -->
-  <div class="md:col-span-8">
-    <ul class="border-t border-grey-10">
+  <div class="flex md:col-span-8">
+    <ul class="flex w-full flex-col self-stretch border-t border-grey-10">
       {
         services.map((s, i) => (
-          <li>
+          <li class="flex flex-1">
             <button
               type="button"
               class={`svc-row ${i === 0 ? "is-active" : ""}`}
