@@ -1,14 +1,95 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Services from "../components/Services.astro";
+import { services } from "../data/content";
+
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 ---
 
 <Layout title="Services — Vecube">
-  <section class="py-12 md:py-16">
+  <!-- page hero -->
+  <section class="py-10 md:py-14">
     <div class="wrap">
       <span class="label"><span class="dot"></span> What we do</span>
-      <h1 class="h-display mt-4 mb-14 text-[clamp(2.75rem,8vw,8rem)]">Services.</h1>
-      <Services />
+      <h1 class="h-display mt-4 text-[clamp(2.75rem,9vw,8rem)]">Services.</h1>
+      <p class="mt-6 max-w-[56ch] text-lg leading-snug text-grey-60">
+        Four teams, one partnership studio. From first identity to full-stack build and
+        go-to-market — here's everything we do, in detail.
+      </p>
+
+      <!-- quick index -->
+      <nav class="mt-8 flex flex-wrap gap-3">
+        {
+          services.map((s) => (
+            <a
+              href={`#${slug(s.name)}`}
+              class="rounded-full bg-grey-05 px-4 py-2 font-mono text-xs uppercase tracking-[0.06em] text-grey-60 transition-colors hover:bg-blue hover:text-white"
+            >
+              {s.num} · {s.name}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+
+  <!-- detailed sections, one per pillar (alternating layout) -->
+  {
+    services.map((s, i) => (
+      <section id={slug(s.name)} class="scroll-mt-28 border-t border-grey-10 py-12 md:py-20">
+        <div class="wrap grid grid-cols-1 items-start gap-10 md:grid-cols-12 md:gap-12">
+          {/* media */}
+          <div class={`md:col-span-5 ${i % 2 === 1 ? "md:order-2" : ""}`}>
+            <div class="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[2px] border border-grey-10 bg-grey-05">
+              <span class="font-mono text-xs uppercase tracking-[0.14em] text-grey-40">
+                ◳ {s.name}
+              </span>
+              {s.image && (
+                <img
+                  src={s.image}
+                  alt={s.name}
+                  loading="lazy"
+                  onerror="this.remove()"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
+            </div>
+          </div>
+
+          {/* text */}
+          <div class={`md:col-span-7 ${i % 2 === 1 ? "md:order-1" : ""}`}>
+            <div class="flex items-baseline gap-4">
+              <span class="font-mono text-sm text-grey-40">{`{ ${s.num} }`}</span>
+              <h2 class="h-display text-[clamp(2.25rem,5vw,4rem)]">{s.name}</h2>
+            </div>
+            <p class="mt-4 max-w-[46ch] text-lg leading-snug text-grey-60">{s.blurb}</p>
+
+            <p class="mt-8 label"><span class="dot" /> What's included</p>
+            <ul class="mt-4 grid grid-cols-1 gap-x-8 sm:grid-cols-2">
+              {s.items.map((item) => (
+                <li class="flex items-start gap-2 border-b border-grey-10 py-3 text-[0.95rem] leading-tight">
+                  <span class="mt-0.5 text-blue">↳</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a class="btn btn-primary mt-8" href="/contact">
+              Start a {s.name.toLowerCase()} project <span class="arw">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- closing CTA -->
+  <section class="border-t border-grey-10 py-14 md:py-20">
+    <div class="wrap text-center">
+      <h2 class="h-display text-[clamp(2rem,6vw,4.5rem)]">Not sure where to start?</h2>
+      <p class="mx-auto mt-4 max-w-[42ch] text-grey-60">
+        Tell us what you're building and we'll point you at the right mix.
+      </p>
+      <a class="btn btn-primary mt-8" href="/contact">Get in touch <span class="arw">→</span></a>
     </div>
   </section>
 </Layout>
