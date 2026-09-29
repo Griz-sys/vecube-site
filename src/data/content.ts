@@ -318,13 +318,20 @@ export const problems: Problem[] = [
 ];
 
 export const contactCta = {
-  kicker: "Contact us",
-  heading: "Let's bring your vision to life",
-  blurb: "Have an idea or a question? Reach out anytime. We're excited to collaborate.",
+  kicker: "Get in touch",
+  heading: "What's standing between here and next?",
+  line1: "Building from zero, entering a new market or planning the next chapter.",
+  line2: "Start with the problem. We'll build around it.",
+  formName: "Name",
+  formEmail: "Work email",
+  formMessage: "What's stuck? The messy version is fine.",
+  cta: "Talk to Vecube",
 };
 
 export const footer = {
+  brandLine: "Fix the cause. Not the symptom.",
   newsletterHeading: "Stay connected",
+  emailLabel: "Email",
   phone: "+91 99995 03168",
   emails: [
     "shubhankar@vecube.club",
@@ -333,12 +340,13 @@ export const footer = {
   ],
   about:
     "Vecube is a partnership studio designed to be the operational backbone for early-stage startups.",
+  // TODO: replace [City / cities] with your real location(s)
+  cities: "[City / cities]",
   links: [
     { label: "About", href: "/about" },
-    { label: "Projects", href: "/#work" },
+    { label: "Work", href: "/#work" },
     { label: "Contact", href: "/contact" },
     { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
     { label: "LinkedIn", href: "#" },
   ],
 };
