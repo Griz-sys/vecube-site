@@ -196,6 +196,12 @@ export const work: CaseStudy[] = [
   },
 ];
 
+export const midCta = {
+  headline: "You don't need another agency deck.",
+  line: "You need the right people in the room. We'll tell you honestly if we can help.",
+  cta: "Start a conversation",
+};
+
 export const leadMagnet = {
   sticker: "Free growth teardown",
   title: "Your paid media spend isn't growing your business.",

@@ -1,0 +1,23 @@
+---
+import { midCta as c } from "../data/content";
+---
+
+<!-- Mid-page CTA — sits right after the proof, where intent peaks -->
+<section class="py-12 md:py-16">
+  <div class="wrap">
+    <div class="relative overflow-hidden rounded-[2px] bg-blue px-8 py-14 text-white md:px-14 md:py-20">
+      <span class="sticker absolute right-6 top-6">{`{ 09 }`}</span>
+
+      <h2 class="h-display max-w-[18ch] text-[clamp(2.2rem,6vw,5rem)]">{c.headline}</h2>
+      <p class="mt-5 max-w-[46ch] text-lg leading-snug text-white/85">{c.line}</p>
+
+      <a
+        class="btn mt-8 bg-white !text-blue hover:bg-accent hover:!text-ink"
+        style="padding:1.05rem 2rem;height:3.75rem;font-size:1.05rem;"
+        href="/contact"
+      >
+        {c.cta} <span class="arw">→</span>
+      </a>
+    </div>
+  </div>
+</section>
