@@ -124,60 +124,75 @@ export const services: ServiceGroup[] = [
   },
 ];
 
+export const workMeta = {
+  tag: "Selected work",
+  headline: "Our work.",
+  line: "Less what we made. More what we moved.",
+  cta: "View all case studies",
+};
+
 export type CaseStudy = {
   name: string;
-  role?: string; // short "what we did" line
-  desc: string;
+  desc: string; // "what moved", in one line — lead with the client's change
+  result?: string; // verified result, shown in blue (numbers only)
   tags: string[];
   // drop the logo/case image into /public/images/work/ with this path
   image?: string;
   // brand colour used for the placeholder tile until the image is added
   color?: string;
-  // set false when the placeholder colour is light (dark text)
+  // set true when the placeholder colour is light (dark text)
   light?: boolean;
-  soon?: boolean;
 };
 
+// ordered by proof strength
 export const work: CaseStudy[] = [
   {
     name: "Amara",
-    role: "Brand, Assets & Socials",
-    desc: "Boosting customer engagement through social media.",
-    tags: ["Performance Marketing", "Branding"],
+    tags: ["Brand", "Ecommerce", "Media"],
+    desc: "Taking a heritage dessert brand into its next chapter.",
+    result: "[Verified result]",
     image: "/images/work/amara.avif",
     color: "#7a1f3d",
   },
   {
-    name: "TrackEdu",
-    role: "Service & Lead Operations Platform",
-    desc: "An operations portal: role-based lead management, built for clarity at scale.",
-    tags: ["Development"],
-    image: "/images/work/trackedu.avif",
-    color: "#0b1b3a",
+    name: "Leverage Edu",
+    tags: ["Dev", "Platform"],
+    desc: "[One line — what moved]",
+    result: "[Verified result]",
+    image: "/images/work/leverage-edu.avif",
+    color: "#eef2fb",
+    light: true,
   },
   {
     name: "FitPaisa",
-    role: "Design & Ads",
-    desc: "Launching FitPaisa's MVP from the ground up — branding, website, onboarding and referral tools.",
-    tags: ["Branding", "Performance Marketing", "Web design", "Development"],
+    tags: ["Brand", "Dev", "Media"],
+    desc: "[One line — what moved]",
+    result: "[Verified result]",
     image: "/images/work/fitpaisa.avif",
     color: "#16305c",
   },
   {
     name: "The Wedding Company",
-    role: "Design",
-    desc: "Rebranding TWC as weddings experts and designing their hero products.",
-    tags: ["Branding", "Web design"],
+    tags: ["Brand", "Content"],
+    desc: "[One line — what moved]",
+    result: "[Verified result]",
     image: "/images/work/the-wedding-company.avif",
     color: "#c39a4f",
   },
   {
     name: "Global Mobility Services",
-    desc: "Coming soon.",
-    tags: ["Web design", "Branding", "Development"],
+    tags: ["Brand", "Dev"],
+    desc: "[One line — what moved]",
+    result: "[Verified result]",
     image: "/images/work/gms.avif",
     color: "#4a9e46",
-    soon: true,
+  },
+  {
+    name: "Expatria",
+    tags: ["Brand", "Media"],
+    desc: "[One line — what moved]",
+    result: "[Verified result]",
+    color: "#2b2f45",
   },
 ];
 
