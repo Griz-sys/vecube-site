@@ -251,6 +251,27 @@ body {
   }
 }
 
+/* macOS-dock-style lift on hover */
+.way-step {
+  transform-origin: center bottom;
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0.85, 0.25, 1.3),
+    box-shadow 0.3s ease;
+}
+.way-step:hover {
+  transform: translateY(-16px) scale(1.04);
+  z-index: 20;
+  box-shadow: 0 28px 55px rgba(0, 0, 0, 0.24);
+}
+@media (prefers-reduced-motion: reduce) {
+  .way-step {
+    transition: none;
+  }
+  .way-step:hover {
+    transform: none;
+  }
+}
+
 /* ---------- "What's not moving?" problem picker (Problems.astro) ---------- */
 .wnm-panel-wrap {
   display: grid;
