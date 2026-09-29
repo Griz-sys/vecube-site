@@ -232,6 +232,17 @@ body {
   border-radius: 999px;
 }
 
+/* ---------- Services sticky stack (StickyServices.astro) ---------- */
+/* cards pile up on scroll; pure CSS, no JS. Disabled on mobile (normal stack). */
+.svc-sticky {
+  position: static;
+}
+@media (min-width: 768px) {
+  .svc-sticky {
+    position: sticky;
+  }
+}
+
 /* ---------- The Vecube Way rising staircase (VecubeWay.astro) ---------- */
 /* each card sits higher than the last on wide screens (var --i = 4..0) */
 @media (min-width: 1024px) {
