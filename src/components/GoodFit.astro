@@ -1,0 +1,42 @@
+---
+import { goodFit as g, fitItems } from "../data/content";
+const big = fitItems[0];
+const rest = fitItems.slice(1);
+---
+
+<section id="good-fit" class="scroll-mt-28 py-12 md:py-16">
+  <div class="wrap">
+    <span class="label"><span class="dot"></span> {g.tag} · {`{ 07 }`}</span>
+    <h2 class="h-display mt-4 max-w-[20ch] text-[clamp(2.5rem,6.5vw,6rem)]">{g.headline}</h2>
+
+    <!-- 01 · the big one (lime callout) -->
+    <div class="mt-10 rounded-[2px] bg-accent p-8 md:p-12">
+      <span class="font-mono text-xs uppercase tracking-[0.12em] text-ink/60">
+        {big.num} · {g.bigLabel}
+      </span>
+      <p class="h-display normal-case mt-3 max-w-[22ch] text-[clamp(1.8rem,4.5vw,3.4rem)] leading-[1.05]">
+        {big.text}
+      </p>
+    </div>
+
+    <!-- 02–06 -->
+    <div class="mt-6 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        rest.map((item) => (
+          <div class="border-t-2 border-ink pt-4">
+            <span class="font-mono text-sm text-blue">{item.num}</span>
+            <p class="mt-2 text-lg leading-snug">{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- closing -->
+    <div class="mt-14 flex flex-wrap items-center justify-between gap-8">
+      <p class="h-display normal-case max-w-[24ch] text-[clamp(1.5rem,3.2vw,2.6rem)] leading-tight">
+        {g.closing}
+      </p>
+      <a class="btn btn-primary" href="/contact">{g.cta} <span class="arw">→</span></a>
+    </div>
+  </div>
+</section>

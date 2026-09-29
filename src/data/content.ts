@@ -233,6 +233,23 @@ export const waySteps: WayStep[] = [
   { num: "05", step: "Scale", line: "Back what works." },
 ];
 
+export const goodFit = {
+  tag: "Good fit",
+  headline: "You'll probably enjoy working with us if…",
+  bigLabel: "The big one",
+  closing: "Sound like you? We'd love to hear what you're working on.",
+  cta: "Start a conversation",
+};
+
+export const fitItems: { num: string; text: string }[] = [
+  { num: "01", text: "You'd rather have one team than five vendors." },
+  { num: "02", text: "You appreciate honest advice, even when it challenges the brief." },
+  { num: "03", text: "You value a long-term partner over a quick deliverable." },
+  { num: "04", text: "You believe the right team matters more than the cheapest quote." },
+  { num: "05", text: "You care more about what moves than how much gets made." },
+  { num: "06", text: "You don't need your team down the road, just on the same page." },
+];
+
 export type Problem = {
   tile: string;
   behind: string;
