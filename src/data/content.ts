@@ -203,12 +203,13 @@ export const midCta = {
 };
 
 export const leadMagnet = {
-  sticker: "Free growth teardown",
-  title: "Your paid media spend isn't growing your business.",
-  titleAccent: "Here's how to fix it.",
-  blurb:
-    "Grab the deck from our recent teardown on how leading ecommerce brands optimise paid media for real growth.",
-  cta: "Download the deck",
+  sticker: "Free teardown",
+  tag: "The Vecube Teardown",
+  headline1: "Before you spend more,",
+  headline2: "find out where it's leaking.",
+  line: "A practical self-audit across brand, acquisition, retention and tech. Find the real bottleneck in one sitting.",
+  cta: "Get the teardown",
+  micro: "We only write when it's worth reading.",
 };
 
 export const founder = {

@@ -1,26 +1,51 @@
 ---
-import { leadMagnet } from "../data/content";
+import { leadMagnet as l } from "../data/content";
 ---
 
-<section id="about" class="py-12 md:py-16">
+<section id="teardown" class="scroll-mt-28 py-12 md:py-16">
   <div class="wrap">
-    <!-- lead magnet: download the deck -->
     <div class="relative overflow-hidden rounded-[2px] border border-grey-10 bg-grey-05 p-8 md:p-12">
-      <span class="sticker sticker-blue absolute -top-3 right-8">{leadMagnet.sticker}</span>
+      <span class="sticker sticker-blue absolute -top-3 right-8">{l.sticker}</span>
+
       <div class="grid grid-cols-1 items-end gap-8 md:grid-cols-12">
         <div class="md:col-span-8">
-          <span class="label"><span class="dot"></span> Lead magnet · {`{ 10 }`}</span>
+          <span class="label"><span class="dot"></span> {l.tag} · {`{ 10 }`}</span>
           <h3 class="h-display mt-4 text-[clamp(1.8rem,4vw,3.2rem)]">
-            {leadMagnet.title}<br /><span class="text-blue">{leadMagnet.titleAccent}</span>
+            {l.headline1}<br /><span class="text-blue">{l.headline2}</span>
           </h3>
-          <p class="mt-4 max-w-[52ch] text-grey-60">{leadMagnet.blurb}</p>
+          <p class="mt-4 max-w-[54ch] text-grey-60">{l.line}</p>
         </div>
         <div class="md:col-span-4 md:text-right">
-          <a class="btn btn-primary" href="/contact">
-            {leadMagnet.cta} <span class="arw">→</span>
-          </a>
+          <button id="teardown-cta" class="btn btn-primary" type="button">
+            {l.cta} <span class="arw">→</span>
+          </button>
         </div>
+      </div>
+
+      <!-- form, revealed on CTA click -->
+      <div id="teardown-form" hidden class="mt-8 border-t border-grey-10 pt-8">
+        <form class="grid grid-cols-1 gap-5 sm:grid-cols-3" onsubmit="return false;">
+          <input class="field" type="text" placeholder="Name*" required />
+          <input class="field" type="email" placeholder="Work email*" required />
+          <input class="field" type="text" placeholder="Company*" />
+          <button class="btn btn-primary justify-self-start sm:col-span-3" type="submit">
+            Send me the teardown <span class="arw">→</span>
+          </button>
+        </form>
+        <p class="mt-4 font-mono text-xs text-grey-40">{l.micro}</p>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const btn = document.getElementById("teardown-cta");
+  const form = document.getElementById("teardown-form");
+  btn?.addEventListener("click", () => {
+    if (form) {
+      form.hidden = false;
+      btn.style.display = "none";
+      form.querySelector("input")?.focus();
+    }
+  });
+</script>
