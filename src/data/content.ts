@@ -210,6 +210,29 @@ export const problemsMeta = {
   ctaSecondary: "Something else? Tell us.",
 };
 
+export const vecubeWay = {
+  tag: "The Vecube way",
+  headlinePre: "No prescription before",
+  headlineAccent: "diagnosis.",
+  sub: "Most agencies sell the service they have. We start with the one you need.",
+  rxHeader: "The usual quick fixes",
+  rxItems: ["More ad spend", "A new website", "Another rebrand", "More content"],
+  rxFooter: "Diagnose first.",
+  rxBrand: "Vecube",
+  startHere: "Start here",
+  loop: "Learn. Repeat.",
+};
+
+export type WayStep = { num: string; step: string; line: string };
+
+export const waySteps: WayStep[] = [
+  { num: "01", step: "Diagnose", line: "Find what's really stuck." },
+  { num: "02", step: "Prioritise", line: "Agree what matters first." },
+  { num: "03", step: "Build", line: "Put the right people on it." },
+  { num: "04", step: "Test", line: "Get it live. Read the signal." },
+  { num: "05", step: "Scale", line: "Back what works." },
+];
+
 export type Problem = {
   tile: string;
   behind: string;

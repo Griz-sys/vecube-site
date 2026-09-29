@@ -1,0 +1,84 @@
+---
+import { vecubeWay as w, waySteps } from "../data/content";
+---
+
+<section id="how-we-work" class="scroll-mt-28 py-12 md:py-16">
+  <div class="wrap">
+    <!-- header -->
+    <span class="label"><span class="dot"></span> {w.tag} · {`{ 06 }`}</span>
+    <h2 class="h-display mt-4 max-w-[16ch] text-[clamp(2.5rem,6.5vw,6rem)]">
+      {w.headlinePre}{" "}
+      <span
+        class="text-blue"
+        style="background:linear-gradient(transparent 58%, var(--color-accent) 58%);padding:0 0.05em;"
+        >{w.headlineAccent}</span
+      >
+    </h2>
+    <p class="mt-6 max-w-[52ch] text-lg leading-snug text-grey-60">{w.sub}</p>
+
+    <div class="mt-12 grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-12">
+      <!-- Rx prescription slip -->
+      <div class="md:col-span-5">
+        <div
+          class="grain relative rotate-[-1.5deg] overflow-hidden rounded-[2px] border-2 border-ink bg-paper p-6 shadow-[0_16px_40px_rgba(0,0,0,0.12)] md:p-8"
+        >
+          <div class="flex items-baseline gap-3 border-b border-grey-10 pb-4">
+            <span class="font-display text-3xl font-black italic">Rx</span>
+            <span class="font-mono text-xs uppercase tracking-[0.12em] text-grey-60">
+              {w.rxHeader}
+            </span>
+          </div>
+
+          <ul class="mt-5 flex flex-col gap-3">
+            {
+              w.rxItems.map((item) => (
+                <li class="flex items-center gap-3 text-lg text-grey-40 line-through decoration-blue decoration-2">
+                  <span aria-hidden="true" class="text-blue no-underline">✗</span>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+
+          <div class="mt-6 flex items-center justify-between border-t border-grey-10 pt-4">
+            <span class="h-display text-lg">{w.rxFooter}</span>
+            <span class="flex items-center gap-1.5 font-mono text-sm font-bold text-blue">
+              {w.rxBrand} <span aria-hidden="true">✓</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- rising staircase of steps -->
+      <div class="md:col-span-7">
+        <ol class="flex flex-col gap-3">
+          {
+            waySteps.map((s, i) => (
+              <li
+                class="relative rounded-[2px] border border-grey-10 bg-grey-05 p-5 md:p-6"
+                style={`margin-left: calc(${i} * clamp(0px, 3vw, 2.5rem));`}
+              >
+                {i === 0 && (
+                  <span class="sticker absolute -right-2 -top-3 z-10">{w.startHere}</span>
+                )}
+                <div class="flex items-baseline gap-4">
+                  <span class="font-mono text-sm text-blue">{s.num}</span>
+                  <h3 class="h-display text-[clamp(1.5rem,3vw,2.4rem)]">{s.step}</h3>
+                </div>
+                <p class="mt-1 text-grey-60">{s.line}</p>
+              </li>
+            ))
+          }
+        </ol>
+
+        <!-- loop pill -->
+        <div
+          class="mt-4 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 font-mono text-sm uppercase tracking-[0.08em] text-white"
+          style={`margin-left: calc(${waySteps.length} * clamp(0px, 3vw, 2.5rem));`}
+        >
+          <span aria-hidden="true">↺</span> {w.loop}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
