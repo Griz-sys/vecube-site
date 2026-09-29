@@ -13,10 +13,10 @@ import { founder } from "../data/content";
       >
       </div>
       <div class="flex-1 min-w-[220px]">
-        <p class="text-lg font-bold leading-tight md:text-xl">
-          Hey 👋 I'm <span class="text-blue">{founder.name}</span>, {founder.role}.
+        <p class="text-lg font-bold leading-tight md:text-xl">{founder.hook}</p>
+        <p class="mt-1 text-black/70">
+          Hey, I'm <span class="text-blue">{founder.name}</span>, {founder.intro}
         </p>
-        <p class="mt-1 text-black/60">{founder.message}</p>
       </div>
       <a class="btn btn-primary" href="/contact">{founder.cta} <span class="arw">→</span></a>
     </div>

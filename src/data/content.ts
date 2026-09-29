@@ -183,9 +183,10 @@ export const leadMagnet = {
 };
 
 export const founder = {
-  name: "Mahdi Shafiei",
-  role: "Founder, Vecube",
-  message: "Let's talk about your growth.",
+  hook: "Can't quite name the problem yet? That's the best time to talk.",
+  // TODO: replace with a real Vecube co-founder's name (strong trust signal)
+  name: "[Founder name]",
+  intro: "co-founder of Vecube. Bring us the messy version.",
   cta: "Book a call",
 };
 
