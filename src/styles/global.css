@@ -232,6 +232,14 @@ body {
   border-radius: 999px;
 }
 
+/* ---------- The Vecube Way rising staircase (VecubeWay.astro) ---------- */
+/* each card sits higher than the last on wide screens (var --i = 4..0) */
+@media (min-width: 1024px) {
+  .way-step {
+    margin-top: calc(var(--i, 0) * 2.25rem);
+  }
+}
+
 /* ---------- "What's not moving?" problem picker (Problems.astro) ---------- */
 .wnm-panel-wrap {
   display: grid;
