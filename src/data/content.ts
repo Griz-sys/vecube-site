@@ -32,14 +32,14 @@ export const hero = {
 };
 
 export const clients: string[] = [
-  "PANGAIA",
-  "HUEL",
-  "ALPECIN",
-  "OSLO SKIN",
-  "PRAI",
-  "TIDE",
-  "MAKE WAVES",
-  "WHO GIVES A CRAP",
+  "Amara",
+  "Leverage Edu",
+  "FitPaisa",
+  "The Wedding Company",
+  "GMS",
+  "Expatria",
+  "MK's",
+  "EMS",
 ];
 
 export type ServiceGroup = {
