@@ -13,20 +13,22 @@ export const site = {
 export const nav: { label: string; href: string }[] = [
   { label: "Services", href: "/services" },
   { label: "Work", href: "/#work" },
-  { label: "About", href: "/about" },
+  { label: "How we work", href: "/#how-we-work" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const hero = {
-  kicker: "Paid media studio · Global ecommerce",
-  issue: "Issue 01",
-  // headline is rendered in parts so we can colour the middle line
-  lineOne: "Smarter",
-  lineAccent: "paid media",
-  lineTwo: "for global ecommerce.",
-  blurb:
-    "We build, run and scale performance campaigns for ambitious ecommerce brands — creative, media and data under one roof.",
-  sticker: "We're a small team!",
+  // hidden H1 for SEO/accessibility (banner art carries the visible brand name)
+  h1: "Vecube: strategy, brand, media and technology, built around the problem",
+  // small tag, top-left (blue dot)
+  kicker: "One team for strategy, brand, media & tech",
+  // lime sticker, top-right — the one spot on the banner meant to be read
+  sticker: "Fix the cause. Not the symptom.",
+  // primary action, bottom-right (lower commitment than "start a project")
+  ctaPrimary: "Tell us what's stuck",
+  ctaSecondary: "See our work",
+  imageAlt:
+    "The Vecube team surrounded by the tools of brand, media and technology work",
 };
 
 export const clients: string[] = [
