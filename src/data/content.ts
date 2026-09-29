@@ -46,7 +46,9 @@ export type ServiceGroup = {
   num: string;
   name: string;
   blurb: string;
-  items: string[];
+  items: string[]; // full list, used on the detailed /services page
+  tags?: string[]; // short set, used on the homepage tabs
+  href?: string; // "Explore …" link target
   image?: string;
 };
 
@@ -55,8 +57,10 @@ export const services: ServiceGroup[] = [
     num: "01",
     name: "Brand",
     image: "/images/services/brand.avif",
+    href: "/services#brand",
     blurb:
-      "Identity, story and assets that make ambitious brands impossible to ignore.",
+      "Positioning, identity and campaigns that give people a reason to choose you.",
+    tags: ["Brand strategy", "Identity", "Campaigns", "Social & content", "Packaging"],
     items: [
       "Branding & rebranding",
       "Packaging & print",
@@ -71,8 +75,9 @@ export const services: ServiceGroup[] = [
     num: "02",
     name: "Media",
     image: "/images/services/media.avif",
-    blurb:
-      "Full-funnel performance and lifecycle marketing that turns spend into predictable growth.",
+    href: "/services#media",
+    blurb: "Media judged on what it earns, not what it reaches.",
+    tags: ["Performance", "Paid search & social", "Marketplaces", "CRM & lifecycle", "Analytics"],
     items: [
       "Performance marketing",
       "Ecommerce & marketplace growth",
@@ -87,8 +92,9 @@ export const services: ServiceGroup[] = [
     num: "03",
     name: "Dev",
     image: "/images/services/dev.avif",
-    blurb:
-      "The engineering behind the growth — sites, apps, platforms and the tools that run them.",
+    href: "/services#dev",
+    blurb: "The websites, apps and systems the next stage needs.",
+    tags: ["Websites", "Ecommerce", "Apps", "CRM", "Custom platforms"],
     items: [
       "Full-stack development & automation",
       "Web & app design / development",
@@ -102,8 +108,10 @@ export const services: ServiceGroup[] = [
     num: "04",
     name: "Venture",
     image: "/images/services/venture.avif",
+    href: "/services#venture",
     blurb:
-      "Strategy for founders and operators — from GTM and product-market fit to pricing and P&L.",
+      "For the decisions before the brief: new markets, launches and what comes next.",
+    tags: ["GTM", "Market entry", "Product-market fit", "Research", "Launch strategy"],
     items: [
       "GTM strategy & launch",
       "New product development support",

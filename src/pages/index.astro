@@ -21,9 +21,14 @@ import LeadMagnet from "../components/LeadMagnet.astro";
   <!-- 04 · Service -->
   <section id="services" class="py-12 md:py-16">
     <div class="wrap">
-      <div class="mb-14">
-        <span class="label"><span class="dot"></span> What we do · {`{ 04 }`}</span>
-        <h2 class="h-display mt-4 text-[clamp(2.75rem,7vw,7rem)]">Services.</h2>
+      <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <span class="label"><span class="dot"></span> What we do · {`{ 04 }`}</span>
+          <h2 class="h-display mt-4 text-[clamp(2.75rem,7vw,7rem)]">Services.</h2>
+        </div>
+        <p class="max-w-[26ch] text-lg leading-snug text-grey-60 md:text-right">
+          Four ways in. One team behind all of them.
+        </p>
       </div>
       <Services />
     </div>
