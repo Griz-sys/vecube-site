@@ -198,6 +198,63 @@ export const founder = {
   cta: "Book a call",
 };
 
+export const problemsMeta = {
+  tag: "Where it hurts",
+  headline: "What's not moving?",
+  intro: "Pick the one that sounds familiar. We'll show you where we'd start.",
+  // TODO: confirm Vecube actually offers this before launch
+  sticker: "Free 30-min diagnosis",
+  label1: "What's usually behind it",
+  label2: "Where we'd start",
+  ctaPrimary: "Talk to us about this",
+  ctaSecondary: "Something else? Tell us.",
+};
+
+export type Problem = {
+  tile: string;
+  behind: string;
+  start: string[];
+};
+
+export const problems: Problem[] = [
+  {
+    tile: "Growth has stalled",
+    behind:
+      "What got you here has stopped working. The next jump usually needs something new: an audience, a market, a product or a price point.",
+    start: ["Growth audit", "New audiences", "Pricing & range"],
+  },
+  {
+    tile: "Customers cost too much",
+    behind:
+      "Rising acquisition costs rarely sit in media alone. Tired creative, a blurry proposition or a leaky website often do more damage.",
+    start: ["Proposition", "Creative", "Funnel"],
+  },
+  {
+    tile: "Entering a new market",
+    behind:
+      "New market, new rules. Who buys, why they buy and what they will pay all need checking before the budget goes in.",
+    start: ["Market entry", "Local positioning", "GTM plan"],
+  },
+  {
+    tile: "Launching something new",
+    behind:
+      "A launch can't outspend weak fit. Pressure-test who it's for and why they'd switch, then go loud.",
+    start: ["Audience", "Proposition", "Launch plan"],
+  },
+  {
+    tile: "Brand isn't cutting through",
+    behind:
+      "People remember brands that stay consistent long enough to stick. Clarity usually beats volume.",
+    start: ["Positioning", "Identity", "Content system"],
+  },
+  {
+    tile: "Tech & data are holding us back",
+    behind:
+      "A slow site, a CRM nobody trusts, data in five places. The plumbing decides how far the marketing can go.",
+    start: ["Website", "CRM", "Data setup"],
+  },
+];
+
 export const contactCta = {
   kicker: "Contact us",
   heading: "Let's bring your vision to life",

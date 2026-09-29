@@ -232,6 +232,61 @@ body {
   border-radius: 999px;
 }
 
+/* ---------- "What's not moving?" problem picker (Problems.astro) ---------- */
+.wnm-panel-wrap {
+  display: grid;
+}
+.wnm-panel-wrap > .wnm-panel {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s var(--ease-brand);
+}
+.wnm-panel-wrap > .wnm-panel.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.wnm-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 0.25rem;
+  border-bottom: 1px solid var(--color-grey-10);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+.wnm-name {
+  font-size: clamp(1.15rem, 2.3vw, 1.9rem);
+  color: var(--color-grey-40);
+  transition:
+    color 0.2s var(--ease-brand),
+    transform 0.2s var(--ease-brand);
+}
+.wnm-row.is-active .wnm-name {
+  color: var(--color-ink);
+}
+.wnm-row:hover .wnm-name {
+  color: var(--color-ink);
+  transform: translateX(6px);
+}
+.wnm-arw {
+  flex: none;
+  color: var(--color-blue);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 0.2s var(--ease-brand),
+    transform 0.2s var(--ease-brand);
+}
+.wnm-row.is-active .wnm-arw,
+.wnm-row:hover .wnm-arw {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* ---------- contact form fields (contact.astro) ---------- */
 .field {
   width: 100%;

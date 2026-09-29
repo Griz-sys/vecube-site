@@ -27,7 +27,7 @@ import { site } from "../data/content";
           <input class="field sm:col-span-2" type="text" placeholder="Company*" />
           <input class="field" type="email" placeholder="Email*" required />
           <input class="field" type="url" placeholder="Website" />
-          <textarea class="field sm:col-span-2" rows="4" placeholder="Message*"></textarea>
+          <textarea id="message" class="field sm:col-span-2" rows="4" placeholder="Message*"></textarea>
           <button class="btn btn-primary sm:col-span-2 justify-self-start" type="submit">
             Submit <span class="arw">→</span>
           </button>
@@ -35,4 +35,13 @@ import { site } from "../data/content";
       </div>
     </div>
   </section>
+
+  <script>
+    // Prefill the message when arriving from a "What's not moving?" problem tile.
+    const problem = new URLSearchParams(location.search).get("problem");
+    if (problem) {
+      const msg = document.getElementById("message") as HTMLTextAreaElement | null;
+      if (msg) msg.value = `What's not moving: ${problem}.\n\n`;
+    }
+  </script>
 </Layout>

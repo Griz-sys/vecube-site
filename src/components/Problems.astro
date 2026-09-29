@@ -1,0 +1,110 @@
+---
+import { problems, problemsMeta } from "../data/content";
+const m = problemsMeta;
+---
+
+<!--
+  "What's not moving?" — problem-first picker.
+  Click a problem on the right → the blue panel on the left updates.
+  Each "Talk to us about this" passes the problem into /contact so the
+  first conversation starts from it. Plain <script>, no React island.
+-->
+<section id="how-we-work" class="scroll-mt-28 py-12 md:py-16">
+  <div class="wrap">
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <span class="label"><span class="dot"></span> {m.tag} · {`{ 05 }`}</span>
+        <h2 class="h-display mt-4 text-[clamp(2.75rem,7vw,7rem)]">{m.headline}</h2>
+      </div>
+      <p class="max-w-[30ch] text-lg leading-snug text-grey-60 md:text-right">{m.intro}</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-8" id="wnm">
+      <!-- LEFT: blue detail panel -->
+      <div class="md:col-span-5">
+        <div class="wnm-panel-wrap">
+          {
+            problems.map((p, i) => (
+              <div class={`wnm-panel ${i === 0 ? "is-active" : ""}`} data-panel={i}>
+                <div class="grain relative overflow-hidden rounded-[2px] bg-blue p-7 text-white md:p-8">
+                  <span class="sticker sticker-blue absolute -top-3 right-6 !bg-accent !text-ink">
+                    {m.sticker}
+                  </span>
+                  <h3 class="h-display mt-2 text-[clamp(1.6rem,3vw,2.4rem)]">{p.tile}</h3>
+
+                  <p class="mt-6 font-mono text-xs uppercase tracking-[0.12em] text-white/60">
+                    {m.label1}
+                  </p>
+                  <p class="mt-2 text-white/90">{p.behind}</p>
+
+                  <p class="mt-6 font-mono text-xs uppercase tracking-[0.12em] text-white/60">
+                    {m.label2}
+                  </p>
+                  <ul class="mt-3 flex flex-wrap gap-2">
+                    {p.start.map((t) => (
+                      <li class="rounded-full border border-white/25 px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.04em] text-white/85">
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div class="mt-7 flex flex-wrap items-center gap-4">
+                    <a
+                      class="btn bg-white !text-blue hover:bg-accent hover:!text-ink"
+                      style="padding:0.9rem 1.6rem;height:3.375rem;"
+                      href={`/contact?problem=${encodeURIComponent(p.tile)}`}
+                    >
+                      {m.ctaPrimary} <span class="arw">→</span>
+                    </a>
+                    <a class="btn btn-tertiary !text-white" href="/contact">
+                      <span class="txt">{m.ctaSecondary}</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- RIGHT: the six problems -->
+      <div class="flex md:col-span-7">
+        <ul class="flex w-full flex-col self-stretch border-t border-grey-10">
+          {
+            problems.map((p, i) => (
+              <li class="flex flex-1">
+                <button
+                  type="button"
+                  class={`wnm-row ${i === 0 ? "is-active" : ""}`}
+                  data-row={i}
+                  aria-label={p.tile}
+                >
+                  <span class="wnm-name h-display">{p.tile}</span>
+                  <span class="wnm-arw" aria-hidden="true">↳</span>
+                </button>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.getElementById("wnm");
+  if (root) {
+    const rows = Array.from(root.querySelectorAll<HTMLElement>("[data-row]"));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>("[data-panel]"));
+    const setActive = (idx: string) => {
+      rows.forEach((r) => r.classList.toggle("is-active", r.dataset.row === idx));
+      panels.forEach((p) => p.classList.toggle("is-active", p.dataset.panel === idx));
+    };
+    rows.forEach((r) => {
+      const idx = r.dataset.row!;
+      r.addEventListener("mouseenter", () => setActive(idx));
+      r.addEventListener("focus", () => setActive(idx));
+      r.addEventListener("click", () => setActive(idx));
+    });
+  }
+</script>
