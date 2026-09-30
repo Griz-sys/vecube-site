@@ -21,10 +21,10 @@ import { hero } from "../data/content";
       aria-label={hero.imageAlt}
     ></video>
 
-    <!-- blurred patch over the bottom-right area; fades out as a gradient (hides the watermark) -->
+    <!-- soft blurred patch over the bottom-right area only (hides the watermark) -->
     <div
-      class="pointer-events-none absolute bottom-0 right-0 z-[5] h-56 w-[62%] backdrop-blur-lg"
-      style="-webkit-mask-image:radial-gradient(150% 175% at 100% 100%, #000 12%, transparent 82%); mask-image:radial-gradient(150% 175% at 100% 100%, #000 12%, transparent 82%);"
+      class="pointer-events-none absolute bottom-0 right-0 z-[5] h-44 w-[55%] backdrop-blur-lg"
+      style="-webkit-mask-image:radial-gradient(110% 130% at 100% 100%, #000 60%, transparent 90%); mask-image:radial-gradient(110% 130% at 100% 100%, #000 60%, transparent 90%);"
     >
     </div>
 
