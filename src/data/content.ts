@@ -357,9 +357,11 @@ export const footer = {
 
 export const servicesHero = {
   tag: "What we do",
-  headline: "Brand. Media. Tech. Strategy. One team.",
+  headlineMain: "Brand. Media. Tech. Strategy.",
+  headlineAccent: "One team.",
   sticker: "Free 30-min audit",
-  line: "Start with one service or bring in all four. Either way, one team owns the plan, the work and the results.",
+  linePre: "Start with one service or bring in all four.",
+  lineBold: "Either way, one team owns the plan, the work and the results.",
   cta: "Book a free 30-min audit",
 };
 
@@ -371,11 +373,21 @@ export type ServiceSection = {
   name: string; // BRAND, MEDIA, DEV, VENTURE
   label: string; // Branding, Ads & growth, ...
   anchor: string; // brand, media, dev, venture
-  headline: string;
+  dark: boolean; // section theme
+  headlinePre: string;
+  headlineAccent: string; // coloured tail of the headline
   when: string[];
-  cta: { label: string; href: string; reply?: string };
+  cta: { label: string; href: string; style: "button" | "link" | "bar"; reply?: string };
   groups: SvcGroup[];
-  proof: { label: string; line: string; result: string };
+  proof: {
+    label: string;
+    client: string; // short name shown in the proof tile
+    line: string;
+    result: string;
+    image?: string;
+    color: string;
+    light?: boolean; // proof tile has a light background (dark text)
+  };
   worksWith: { links: { label: string; href: string }[]; line: string };
 };
 
@@ -385,9 +397,11 @@ export const serviceSections: ServiceSection[] = [
     name: "Brand",
     label: "Branding",
     anchor: "brand",
-    headline: "Be the brand people remember. And the one they choose.",
+    dark: false,
+    headlinePre: "Be the brand people remember.",
+    headlineAccent: "And the one they choose.",
     when: ["Launching a new brand", "Rebranding", "Entering a new market"],
-    cta: { label: "Get a free brand audit", href: "/contact?service=Brand" },
+    cta: { label: "Get a free brand audit", href: "/contact?service=Brand", style: "button" },
     groups: [
       {
         items: [
@@ -402,8 +416,11 @@ export const serviceSections: ServiceSection[] = [
     ],
     proof: {
       label: "Proof · Amara Desserts",
+      client: "Amara",
       line: "Taking a heritage dessert brand into its next chapter.",
       result: "[Verified result]",
+      image: "/images/work/amara.avif",
+      color: "#7a1f3d",
     },
     worksWith: {
       links: [
@@ -418,9 +435,11 @@ export const serviceSections: ServiceSection[] = [
     name: "Media",
     label: "Ads & growth",
     anchor: "media",
-    headline: "Ad spend that earns its keep.",
+    dark: true,
+    headlinePre: "Ad spend that",
+    headlineAccent: "earns its keep.",
     when: ["Ad costs going up", "Not sure what's working", "Customers not coming back"],
-    cta: { label: "Get a free ad account audit", href: "/contact?service=Media" },
+    cta: { label: "Get a free ad account audit", href: "/contact?service=Media", style: "link" },
     groups: [
       {
         items: [
@@ -434,8 +453,10 @@ export const serviceSections: ServiceSection[] = [
     ],
     proof: {
       label: "Proof · [Client]",
+      client: "[client]",
       line: "[What moved, in one line]",
       result: "[Verified result, e.g. ROAS or CAC change]",
+      color: "#1f43ff",
     },
     worksWith: {
       links: [
@@ -450,9 +471,11 @@ export const serviceSections: ServiceSection[] = [
     name: "Dev",
     label: "Web & apps",
     anchor: "dev",
-    headline: "Websites and systems built to sell, and to scale.",
+    dark: false,
+    headlinePre: "Websites and systems",
+    headlineAccent: "built to sell, and to scale.",
     when: ["Website isn't bringing in sales", "Too much manual work", "Need a custom build"],
-    cta: { label: "Get a project quote", href: "/contact?service=Dev", reply: "Reply in [48 hours]" },
+    cta: { label: "Get a project quote", href: "/contact?service=Dev", style: "bar", reply: "Reply in [48 hours]" },
     groups: [
       {
         title: "For your customers",
@@ -473,8 +496,12 @@ export const serviceSections: ServiceSection[] = [
     ],
     proof: {
       label: "Proof · Leverage Edu",
+      client: "leverage edu",
       line: "[What moved, in one line]",
       result: "[Verified result]",
+      image: "/images/work/leverage-edu.avif",
+      color: "#eef2fb",
+      light: true,
     },
     worksWith: {
       links: [
@@ -489,9 +516,11 @@ export const serviceSections: ServiceSection[] = [
     name: "Venture",
     label: "Strategy",
     anchor: "venture",
-    headline: "Know your next move before you fund it.",
+    dark: true,
+    headlinePre: "Know your next move",
+    headlineAccent: "before you fund it.",
     when: ["Entering a new market", "Launching a product", "Sales have plateaued"],
-    cta: { label: "Book a free strategy call", href: "/contact?service=Venture" },
+    cta: { label: "Book a free strategy call", href: "/contact?service=Venture", style: "bar" },
     groups: [
       {
         items: [
@@ -505,8 +534,10 @@ export const serviceSections: ServiceSection[] = [
     ],
     proof: {
       label: "Proof · [Expatria / GMS]",
+      client: "Expatria",
       line: "[What moved, in one line]",
       result: "[Verified result]",
+      color: "#2b2f45",
     },
     worksWith: {
       links: [{ label: "All three", href: "#brand" }],

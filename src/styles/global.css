@@ -232,17 +232,26 @@ body {
   border-radius: 999px;
 }
 
-/* ---------- Services page solution bar scroll-spy ---------- */
+/* ---------- Services page solution bar scroll-spy (dark bar) ---------- */
 .spy-link {
-  opacity: 0.5;
-  transition: opacity 0.2s var(--ease-brand);
+  opacity: 0.55;
+  transition:
+    opacity 0.2s var(--ease-brand),
+    background 0.2s var(--ease-brand);
 }
-.spy-link:hover,
-.spy-link.spy-active {
+.spy-link:hover {
   opacity: 1;
 }
+/* active cell inverts: white background, dark text */
+.spy-link.spy-active {
+  opacity: 1;
+  background: var(--color-paper);
+}
 .spy-link.spy-active .h-display {
-  color: var(--color-blue);
+  color: var(--color-ink);
+}
+.spy-link.spy-active .font-mono {
+  color: var(--color-grey-60);
 }
 
 /* ---------- Services sticky stack (StickyServices.astro) ---------- */

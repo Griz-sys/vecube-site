@@ -22,22 +22,36 @@ import {
         <span class="label"><span class="dot"></span> {hero.tag}</span>
         <span class="sticker">{hero.sticker}</span>
       </div>
-      <h1 class="h-display mt-6 max-w-[16ch] text-[clamp(2.75rem,9vw,7.5rem)]">{hero.headline}</h1>
-      <p class="mt-6 max-w-[56ch] text-lg leading-snug text-grey-60">{hero.line}</p>
-      <a class="btn btn-primary mt-8" href="/contact">{hero.cta} <span class="arw">→</span></a>
+      <h1 class="h-display mt-6 max-w-[16ch] text-[clamp(2.75rem,9vw,7.5rem)]">
+        {hero.headlineMain} <span class="text-blue">{hero.headlineAccent}</span>
+      </h1>
+      <p class="mt-6 max-w-[56ch] text-lg leading-snug text-grey-60">
+        {hero.linePre} <span class="font-bold text-ink">{hero.lineBold}</span>
+      </p>
+      <a
+        class="btn mt-8 bg-ink text-white hover:bg-grey-60"
+        style="padding:1.05rem 2rem;height:3.75rem;font-size:1.05rem;"
+        href="/contact"
+      >
+        {hero.cta} <span class="arw">→</span>
+      </a>
     </div>
   </section>
 
-  <!-- SOLUTION BAR (sticky) -->
-  <nav id="solution-bar" class="sticky top-[6.5rem] z-40 border-y border-grey-10 bg-paper/95 backdrop-blur-md">
-    <div class="wrap flex flex-wrap gap-x-8 gap-y-2 py-4">
+  <!-- SOLUTION BAR (sticky, dark) -->
+  <nav id="solution-bar" class="sticky top-[6.25rem] z-40 bg-ink text-white">
+    <div class="wrap grid grid-cols-2 md:grid-cols-4">
       {
-        serviceSections.map((s) => (
-          <a href={`#${s.anchor}`} data-spy={s.anchor} class="spy-link group flex items-baseline gap-2">
-            <span class="font-mono text-xs text-grey-40">
+        serviceSections.map((s, i) => (
+          <a
+            href={`#${s.anchor}`}
+            data-spy={s.anchor}
+            class={`spy-link group flex flex-col gap-1 border-white/15 px-5 py-4 ${i > 0 ? "border-l" : ""}`}
+          >
+            <span class="font-mono text-[0.62rem] uppercase tracking-[0.08em] text-white/50">
               {s.num} · {s.label}
             </span>
-            <span class="h-display text-lg">{s.name}</span>
+            <span class="h-display text-lg md:text-xl">{s.name}</span>
           </a>
         ))
       }
@@ -56,19 +70,29 @@ import {
       <h2 class="h-display mt-4 text-[clamp(2.25rem,6vw,5rem)]">{together.headline}</h2>
       <p class="mt-5 max-w-[48ch] text-lg text-grey-60">{together.line}</p>
 
-      <ol class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <ol class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
-          together.steps.map((step, i) => (
-            <li class="rounded-[2px] border border-grey-10 bg-paper p-6">
-              <span class="font-mono text-xs uppercase tracking-[0.1em] text-blue">
-                Step {i + 1} · {step.label}
-              </span>
-              <p class="mt-3 text-lg leading-snug">{step.text}</p>
-            </li>
-          ))
+          together.steps.map((step, i) => {
+            const themes = [
+              "bg-blue text-white",
+              "bg-accent text-ink",
+              "bg-grey-10 text-ink",
+              "bg-ink text-white",
+            ];
+            return (
+              <li class={`flex min-h-[190px] flex-col justify-between rounded-[2px] p-6 ${themes[i % 4]}`}>
+                <span class="font-mono text-xs uppercase tracking-[0.1em] opacity-70">
+                  Step {i + 1} · {step.label}
+                </span>
+                <p class="mt-6 text-lg font-bold leading-snug">{step.text}</p>
+              </li>
+            );
+          })
         }
       </ol>
-      <p class="h-display mt-10 text-[clamp(1.4rem,3vw,2.4rem)]">{together.closing}</p>
+      <p class="h-display mt-10 text-[clamp(1.4rem,3vw,2.4rem)]">
+        One team. One plan. <span class="text-blue">One point of contact.</span>
+      </p>
     </div>
   </section>
 
@@ -105,14 +129,18 @@ import {
       <p class="mx-auto mt-5 max-w-[46ch] text-lg text-white/80">{closing.line}</p>
       <div class="mt-9 flex flex-wrap justify-center gap-4">
         <a
-          class="btn bg-white !text-blue hover:bg-accent hover:!text-ink"
+          class="btn btn-primary"
           style="padding:1.05rem 2rem;height:3.75rem;font-size:1.05rem;"
           href={closing.buttons[0].href}
         >
           {closing.buttons[0].label} <span class="arw">→</span>
         </a>
-        <a class="btn btn-tertiary !text-white" href={closing.buttons[1].href}>
-          <span class="txt">{closing.buttons[1].label}</span> <span class="arw">→</span>
+        <a
+          class="btn border-2 border-white/40 text-white hover:border-white"
+          style="padding:0.9rem 1.85rem;height:3.75rem;font-size:1.05rem;"
+          href={closing.buttons[1].href}
+        >
+          {closing.buttons[1].label} <span class="arw">→</span>
         </a>
       </div>
       <p class="mt-12 font-mono text-sm uppercase tracking-[0.12em] text-white/50">{closing.signoff}</p>
