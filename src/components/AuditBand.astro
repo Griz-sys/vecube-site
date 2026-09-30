@@ -1,0 +1,30 @@
+---
+import { auditBand as a } from "../data/content";
+---
+
+<section class="grain relative overflow-hidden bg-blue py-14 text-white md:py-20">
+  <div class="wrap relative z-10">
+    <span class="label !text-white/70"><span class="dot !bg-white"></span> {a.tag}</span>
+    <h2 class="h-display mt-4 text-[clamp(2.25rem,6vw,5rem)]">{a.headline}</h2>
+    <p class="mt-5 max-w-[54ch] text-lg leading-snug text-white/85">{a.line}</p>
+
+    <ol class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+      {
+        a.steps.map((step, i) => (
+          <li class="border-t-2 border-white/30 pt-4">
+            <span class="font-mono text-sm text-white/60">{`0${i + 1}`}</span>
+            <p class="mt-2 text-lg leading-snug">{step}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <a
+      class="btn mt-10 bg-white !text-blue hover:bg-accent hover:!text-ink"
+      style="padding:1.05rem 2rem;height:3.75rem;font-size:1.05rem;"
+      href="/contact"
+    >
+      {a.cta} <span class="arw">→</span>
+    </a>
+  </div>
+</section>

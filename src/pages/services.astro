@@ -1,95 +1,142 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { services } from "../data/content";
-
-const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+import ServiceBlock from "../components/ServiceBlock.astro";
+import AuditBand from "../components/AuditBand.astro";
+import {
+  servicesHero as hero,
+  serviceSections,
+  together,
+  faq,
+  servicesClosing as closing,
+} from "../data/content";
 ---
 
-<Layout title="Services — Vecube">
-  <!-- page hero -->
+<Layout
+  title="Services — Vecube | Brand, Media, Dev & Strategy"
+  description="Brand, media, tech and strategy under one team. Start with one service or bring in all four — one team owns the plan, the work and the results."
+>
+  <!-- HERO -->
   <section class="py-10 md:py-14">
     <div class="wrap">
-      <span class="label"><span class="dot"></span> What we do</span>
-      <h1 class="h-display mt-4 text-[clamp(2.75rem,9vw,8rem)]">Services.</h1>
-      <p class="mt-6 max-w-[56ch] text-lg leading-snug text-grey-60">
-        Four teams, one partnership studio. From first identity to full-stack build and
-        go-to-market — here's everything we do, in detail.
-      </p>
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <span class="label"><span class="dot"></span> {hero.tag}</span>
+        <span class="sticker">{hero.sticker}</span>
+      </div>
+      <h1 class="h-display mt-6 max-w-[16ch] text-[clamp(2.75rem,9vw,7.5rem)]">{hero.headline}</h1>
+      <p class="mt-6 max-w-[56ch] text-lg leading-snug text-grey-60">{hero.line}</p>
+      <a class="btn btn-primary mt-8" href="/contact">{hero.cta} <span class="arw">→</span></a>
+    </div>
+  </section>
 
-      <!-- quick index -->
-      <nav class="mt-8 flex flex-wrap gap-3">
+  <!-- SOLUTION BAR (sticky) -->
+  <nav id="solution-bar" class="sticky top-[6.5rem] z-40 border-y border-grey-10 bg-paper/95 backdrop-blur-md">
+    <div class="wrap flex flex-wrap gap-x-8 gap-y-2 py-4">
+      {
+        serviceSections.map((s) => (
+          <a href={`#${s.anchor}`} data-spy={s.anchor} class="spy-link group flex items-baseline gap-2">
+            <span class="font-mono text-xs text-grey-40">
+              {s.num} · {s.label}
+            </span>
+            <span class="h-display text-lg">{s.name}</span>
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+
+  <!-- SERVICE BLOCKS (audit band after Media) -->
+  {serviceSections.slice(0, 2).map((s) => <ServiceBlock s={s} />)}
+  <AuditBand />
+  {serviceSections.slice(2).map((s) => <ServiceBlock s={s} />)}
+
+  <!-- HOW THE FOUR WORK TOGETHER -->
+  <section class="border-t border-grey-10 bg-grey-05 py-14 md:py-20">
+    <div class="wrap">
+      <span class="label"><span class="dot"></span> {together.tag}</span>
+      <h2 class="h-display mt-4 text-[clamp(2.25rem,6vw,5rem)]">{together.headline}</h2>
+      <p class="mt-5 max-w-[48ch] text-lg text-grey-60">{together.line}</p>
+
+      <ol class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {
-          services.map((s) => (
-            <a
-              href={`#${slug(s.name)}`}
-              class="rounded-full bg-grey-05 px-4 py-2 font-mono text-xs uppercase tracking-[0.06em] text-grey-60 transition-colors hover:bg-blue hover:text-white"
-            >
-              {s.num} · {s.name}
-            </a>
+          together.steps.map((step, i) => (
+            <li class="rounded-[2px] border border-grey-10 bg-paper p-6">
+              <span class="font-mono text-xs uppercase tracking-[0.1em] text-blue">
+                Step {i + 1} · {step.label}
+              </span>
+              <p class="mt-3 text-lg leading-snug">{step.text}</p>
+            </li>
           ))
         }
-      </nav>
+      </ol>
+      <p class="h-display mt-10 text-[clamp(1.4rem,3vw,2.4rem)]">{together.closing}</p>
     </div>
   </section>
 
-  <!-- detailed sections, one per pillar (alternating layout) -->
-  {
-    services.map((s, i) => (
-      <section id={slug(s.name)} class="scroll-mt-28 border-t border-grey-10 py-12 md:py-20">
-        <div class="wrap grid grid-cols-1 items-start gap-10 md:grid-cols-12 md:gap-12">
-          {/* media */}
-          <div class={`md:col-span-5 ${i % 2 === 1 ? "md:order-2" : ""}`}>
-            <div class="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[2px] border border-grey-10 bg-grey-05">
-              <span class="font-mono text-xs uppercase tracking-[0.14em] text-grey-40">
-                ◳ {s.name}
-              </span>
-              {s.image && (
-                <img
-                  src={s.image}
-                  alt={s.name}
-                  loading="lazy"
-                  onerror="this.remove()"
-                  class="absolute inset-0 h-full w-full object-cover"
-                />
-              )}
-            </div>
-          </div>
-
-          {/* text */}
-          <div class={`md:col-span-7 ${i % 2 === 1 ? "md:order-1" : ""}`}>
-            <div class="flex items-baseline gap-4">
-              <span class="font-mono text-sm text-grey-40">{`{ ${s.num} }`}</span>
-              <h2 class="h-display text-[clamp(2.25rem,5vw,4rem)]">{s.name}</h2>
-            </div>
-            <p class="mt-4 max-w-[46ch] text-lg leading-snug text-grey-60">{s.blurb}</p>
-
-            <p class="mt-8 label"><span class="dot" /> What's included</p>
-            <ul class="mt-4 grid grid-cols-1 gap-x-8 sm:grid-cols-2">
-              {s.items.map((item) => (
-                <li class="flex items-start gap-2 border-b border-grey-10 py-3 text-[0.95rem] leading-tight">
-                  <span class="mt-0.5 text-blue">↳</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <a class="btn btn-primary mt-8" href="/contact">
-              Start a {s.name.toLowerCase()} project <span class="arw">→</span>
-            </a>
-          </div>
-        </div>
-      </section>
-    ))
-  }
-
-  <!-- closing CTA -->
+  <!-- FAQ -->
   <section class="border-t border-grey-10 py-14 md:py-20">
-    <div class="wrap text-center">
-      <h2 class="h-display text-[clamp(2rem,6vw,4.5rem)]">Not sure where to start?</h2>
-      <p class="mx-auto mt-4 max-w-[42ch] text-grey-60">
-        Tell us what you're building and we'll point you at the right mix.
-      </p>
-      <a class="btn btn-primary mt-8" href="/contact">Get in touch <span class="arw">→</span></a>
+    <div class="wrap grid grid-cols-1 gap-10 md:grid-cols-12">
+      <div class="md:col-span-4">
+        <span class="label"><span class="dot"></span> {faq.tag}</span>
+        <h2 class="h-display mt-4 text-[clamp(2.25rem,6vw,4.5rem)]">{faq.headline}</h2>
+      </div>
+      <div class="md:col-span-7 md:col-start-6">
+        <div class="border-t border-grey-10">
+          {
+            faq.items.map((item) => (
+              <details class="group border-b border-grey-10 py-5">
+                <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
+                  <span class="h-display text-lg md:text-xl">{item.q}</span>
+                  <span class="text-blue transition-transform duration-200 group-open:rotate-45">+</span>
+                </summary>
+                <p class="mt-3 max-w-[52ch] text-grey-60">{item.a}</p>
+              </details>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- CLOSING CTA -->
+  <section class="grain relative overflow-hidden bg-ink py-16 text-white md:py-24">
+    <div class="wrap relative z-10 text-center">
+      <span class="sticker">{closing.sticker}</span>
+      <h2 class="h-display mx-auto mt-6 max-w-[18ch] text-[clamp(2.5rem,8vw,6.5rem)]">{closing.headline}</h2>
+      <p class="mx-auto mt-5 max-w-[46ch] text-lg text-white/80">{closing.line}</p>
+      <div class="mt-9 flex flex-wrap justify-center gap-4">
+        <a
+          class="btn bg-white !text-blue hover:bg-accent hover:!text-ink"
+          style="padding:1.05rem 2rem;height:3.75rem;font-size:1.05rem;"
+          href={closing.buttons[0].href}
+        >
+          {closing.buttons[0].label} <span class="arw">→</span>
+        </a>
+        <a class="btn btn-tertiary !text-white" href={closing.buttons[1].href}>
+          <span class="txt">{closing.buttons[1].label}</span> <span class="arw">→</span>
+        </a>
+      </div>
+      <p class="mt-12 font-mono text-sm uppercase tracking-[0.12em] text-white/50">{closing.signoff}</p>
+    </div>
+  </section>
+
+  <script>
+    // scroll-spy: highlight the current section in the sticky solution bar
+    const links = Array.from(document.querySelectorAll<HTMLElement>(".spy-link"));
+    const byAnchor = new Map(links.map((l) => [l.dataset.spy, l]));
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            links.forEach((l) => l.classList.remove("spy-active"));
+            byAnchor.get(e.target.id)?.classList.add("spy-active");
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    ["brand", "media", "dev", "venture"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+  </script>
 </Layout>

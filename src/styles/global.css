@@ -232,6 +232,19 @@ body {
   border-radius: 999px;
 }
 
+/* ---------- Services page solution bar scroll-spy ---------- */
+.spy-link {
+  opacity: 0.5;
+  transition: opacity 0.2s var(--ease-brand);
+}
+.spy-link:hover,
+.spy-link.spy-active {
+  opacity: 1;
+}
+.spy-link.spy-active .h-display {
+  color: var(--color-blue);
+}
+
 /* ---------- Services sticky stack (StickyServices.astro) ---------- */
 /* cards pile up on scroll; pure CSS, no JS. Disabled on mobile (normal stack). */
 .svc-sticky {

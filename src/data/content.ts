@@ -350,3 +350,215 @@ export const footer = {
     { label: "LinkedIn", href: "#" },
   ],
 };
+
+/* ============================================================
+   SERVICES PAGE
+   ============================================================ */
+
+export const servicesHero = {
+  tag: "What we do",
+  headline: "Brand. Media. Tech. Strategy. One team.",
+  sticker: "Free 30-min audit",
+  line: "Start with one service or bring in all four. Either way, one team owns the plan, the work and the results.",
+  cta: "Book a free 30-min audit",
+};
+
+export type SvcItem = { name: string; desc: string };
+export type SvcGroup = { title?: string; items: SvcItem[] };
+
+export type ServiceSection = {
+  num: string;
+  name: string; // BRAND, MEDIA, DEV, VENTURE
+  label: string; // Branding, Ads & growth, ...
+  anchor: string; // brand, media, dev, venture
+  headline: string;
+  when: string[];
+  cta: { label: string; href: string; reply?: string };
+  groups: SvcGroup[];
+  proof: { label: string; line: string; result: string };
+  worksWith: { links: { label: string; href: string }[]; line: string };
+};
+
+export const serviceSections: ServiceSection[] = [
+  {
+    num: "01",
+    name: "Brand",
+    label: "Branding",
+    anchor: "brand",
+    headline: "Be the brand people remember. And the one they choose.",
+    when: ["Launching a new brand", "Rebranding", "Entering a new market"],
+    cta: { label: "Get a free brand audit", href: "/contact?service=Brand" },
+    groups: [
+      {
+        items: [
+          { name: "Brand strategy", desc: "What you stand for, and why customers should choose you over the rest." },
+          { name: "Logo & identity", desc: "A logo, look and voice that stay consistent everywhere you show up." },
+          { name: "Campaigns", desc: "Big ideas that work across ads, social and the real world." },
+          { name: "Social media & content", desc: "Content that keeps you visible and grows your audience, week after week." },
+          { name: "Packaging", desc: "Packs that win attention on the shelf and on screen." },
+          { name: "Photo & video", desc: "Shoots and films produced in-house, from concept to final cut." },
+        ],
+      },
+    ],
+    proof: {
+      label: "Proof · Amara Desserts",
+      line: "Taking a heritage dessert brand into its next chapter.",
+      result: "[Verified result]",
+    },
+    worksWith: {
+      links: [
+        { label: "Media", href: "#media" },
+        { label: "Dev", href: "#dev" },
+      ],
+      line: "Pair with Media to get seen, and Dev to bring it to life online.",
+    },
+  },
+  {
+    num: "02",
+    name: "Media",
+    label: "Ads & growth",
+    anchor: "media",
+    headline: "Ad spend that earns its keep.",
+    when: ["Ad costs going up", "Not sure what's working", "Customers not coming back"],
+    cta: { label: "Get a free ad account audit", href: "/contact?service=Media" },
+    groups: [
+      {
+        items: [
+          { name: "Media planning", desc: "A clear plan for where every rupee, pound or dollar goes, and why." },
+          { name: "Google & Meta ads", desc: "Search and social campaigns built to convert, and optimised every week." },
+          { name: "Ecommerce & marketplaces", desc: "More sales across your website, Amazon and other marketplaces." },
+          { name: "Email, SMS & CRM", desc: "Turn first-time buyers into repeat customers." },
+          { name: "Tracking & reporting", desc: "Clear numbers on what's making money, and what isn't." },
+        ],
+      },
+    ],
+    proof: {
+      label: "Proof · [Client]",
+      line: "[What moved, in one line]",
+      result: "[Verified result, e.g. ROAS or CAC change]",
+    },
+    worksWith: {
+      links: [
+        { label: "Brand", href: "#brand" },
+        { label: "Dev", href: "#dev" },
+      ],
+      line: "Pair with Brand for ads worth watching, and Dev for a site that converts.",
+    },
+  },
+  {
+    num: "03",
+    name: "Dev",
+    label: "Web & apps",
+    anchor: "dev",
+    headline: "Websites and systems built to sell, and to scale.",
+    when: ["Website isn't bringing in sales", "Too much manual work", "Need a custom build"],
+    cta: { label: "Get a project quote", href: "/contact?service=Dev", reply: "Reply in [48 hours]" },
+    groups: [
+      {
+        title: "For your customers",
+        items: [
+          { name: "Websites", desc: "Fast, search-friendly sites that turn visitors into leads and sales." },
+          { name: "Online stores", desc: "Ecommerce stores that make buying effortless." },
+          { name: "Apps & UI/UX", desc: "Web and mobile apps people understand from the first tap." },
+        ],
+      },
+      {
+        title: "For your team",
+        items: [
+          { name: "CRM", desc: "Every lead and customer in one place, with nothing slipping through." },
+          { name: "Business tools", desc: "HR, finance, inventory and project tools, built around how your team works." },
+          { name: "Custom platforms", desc: "Built from the ground up when off-the-shelf won't do." },
+        ],
+      },
+    ],
+    proof: {
+      label: "Proof · Leverage Edu",
+      line: "[What moved, in one line]",
+      result: "[Verified result]",
+    },
+    worksWith: {
+      links: [
+        { label: "Media", href: "#media" },
+        { label: "Brand", href: "#brand" },
+      ],
+      line: "Pair with Media to drive traffic, and Brand to make every page feel like you.",
+    },
+  },
+  {
+    num: "04",
+    name: "Venture",
+    label: "Strategy",
+    anchor: "venture",
+    headline: "Know your next move before you fund it.",
+    when: ["Entering a new market", "Launching a product", "Sales have plateaued"],
+    cta: { label: "Book a free strategy call", href: "/contact?service=Venture" },
+    groups: [
+      {
+        items: [
+          { name: "Go-to-market strategy", desc: "Who to sell to, what to say and which channels to use first." },
+          { name: "Market entry", desc: "A clear, tested plan for launching in a new country or category." },
+          { name: "Product-market fit", desc: "Proof that people will buy, before you scale." },
+          { name: "Customer research", desc: "What your customers actually want, straight from them." },
+          { name: "Growth audit", desc: "What's holding growth back, and what to fix first." },
+        ],
+      },
+    ],
+    proof: {
+      label: "Proof · [Expatria / GMS]",
+      line: "[What moved, in one line]",
+      result: "[Verified result]",
+    },
+    worksWith: {
+      links: [{ label: "All three", href: "#brand" }],
+      line: "Strategy sets the plan. Brand, Media and Dev deliver it.",
+    },
+  },
+];
+
+export const auditBand = {
+  tag: "Free · 30 minutes · Online",
+  headline: "30 minutes. A clear plan. Free.",
+  line: "A focused session with our senior team on what's holding your business back, and what to fix first. No pitch. No commitment.",
+  steps: [
+    "Tell us about your business. It takes two minutes.",
+    "We review your brand, ads and website before we meet.",
+    "You leave with a one-page action plan. Yours to keep.",
+  ],
+  cta: "Book my free audit",
+};
+
+export const together = {
+  tag: "Why one team",
+  headline: "How the four work together.",
+  line: "Here's what that looks like when you launch in a new market.",
+  steps: [
+    { label: "Strategy", text: "We define the audience and plan the launch." },
+    { label: "Brand", text: "We build the brand and the message." },
+    { label: "Dev", text: "We build the website or store." },
+    { label: "Media", text: "We run the campaigns that bring customers in." },
+  ],
+  closing: "One team. One plan. One point of contact.",
+};
+
+export const faq = {
+  tag: "Good questions",
+  headline: "Quick answers.",
+  items: [
+    { q: "Can we hire you for just one service?", a: "Yes. Many clients start with one and add more later." },
+    { q: "Where are you based?", a: "We're based in Noida, India and [city], US." },
+    { q: "How do we get started?", a: "With a free 30-minute audit. We review your business beforehand and tell you what to fix first." },
+    { q: "How much does it cost?", a: "[Pricing approach, e.g. fixed project fee or monthly retainer]" },
+    { q: "Who will we work with?", a: "[Who leads the account and who is on the team]" },
+  ],
+};
+
+export const servicesClosing = {
+  sticker: "Sometimes it's all four.",
+  headline: "Not sure which service you need?",
+  line: "Book a free 30-minute audit and we'll show you where to start. Even if the answer isn't us.",
+  buttons: [
+    { label: "Book a free 30-min audit", href: "/contact" },
+    { label: "See our work", href: "/#work" },
+  ],
+  signoff: "Fix the cause. Not the symptom.",
+};
