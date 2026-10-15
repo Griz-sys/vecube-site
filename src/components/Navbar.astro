@@ -7,18 +7,18 @@ import MobileNav from "./MobileNav.tsx";
 <header class="fixed inset-x-0 top-0 z-50">
   <div class="wrap pt-4">
     <div
-      class="flex items-center justify-between gap-4 rounded-2xl border border-grey-10 bg-paper/90 px-6 py-3.5 shadow-[0_12px_34px_rgba(0,0,0,0.10)] backdrop-blur-md md:px-8 md:py-4"
+      class="flex items-center justify-between gap-4 rounded-2xl bg-ink px-6 py-3.5 md:px-8 md:py-4"
     >
-      <a href="/" class="h-display text-[1.75rem] leading-none md:text-[2rem]">
-        VE<span class="text-blue">CUBE</span>
+      <a href="/" class="flex items-center" aria-label="hiccup home">
+        <img src="/images/hiccup.svg" alt="hiccup" class="h-7 w-auto md:h-8" />
       </a>
 
       <nav class="hidden items-center gap-9 md:flex">
         {
           nav.map((item) => (
-            <a href={item.href} class="group relative text-[1.05rem] font-medium">
+            <a href={item.href} class="group relative text-[1.05rem] font-medium lowercase text-cream">
               {item.label}
-              <span class="absolute -bottom-1.5 left-0 h-0.5 w-0 bg-blue transition-[width] duration-200 group-hover:w-full" />
+              <span class="absolute -bottom-1.5 left-0 h-0.5 w-0 bg-neon transition-[width] duration-200 group-hover:w-full" />
             </a>
           ))
         }

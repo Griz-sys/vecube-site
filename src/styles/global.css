@@ -1,32 +1,42 @@
 @import "tailwindcss";
 
 /* ============================================================
-   VECUBE — design tokens (Tailwind v4 @theme)
-   Swap the brand hex values below for the official palette.
+   hiccup — design tokens (Tailwind v4 @theme)
+   bold, playful, flat. cream default, ink drama, lavender soft,
+   neon accent only.
    ============================================================ */
 @theme {
-  /* colour — white dominant, blue as the single accent */
-  --color-ink: #0a0a0b;
-  --color-paper: #ffffff;
-  --color-grey-05: #f6f6f7;
-  --color-grey-10: #ececee;
-  --color-grey-20: #dcdce0;
-  --color-grey-40: #9a9aa2;
-  --color-grey-60: #6b6b73;
-  --color-blue: #1f43ff;      /* brand blue — SWAP */
-  --color-blue-dk: #0a1e8f;
-  --color-accent: #e8fe5a;    /* small-moment pop — SWAP */
+  /* brand palette */
+  --color-ink: #0a0a0a; /* dark bg / text on light */
+  --color-cream: #fbf3ea; /* warm off-white page bg */
+  --color-lavender: #c197ff; /* soft secondary */
+  --color-neon: #f2ff00; /* accent ONLY */
+
+  /* mapped onto the old token names so existing classes rebrand:
+     paper -> cream, blue -> lavender, accent -> neon */
+  --color-paper: #fbf3ea;
+  --color-grey-05: #f3e8d9; /* subtle warm surface */
+  --color-grey-10: #e6d9c7; /* warm hairline */
+  --color-grey-20: #d6c6b2;
+  --color-grey-40: #8c8375;
+  --color-grey-60: #2b2b2b; /* muted body text on cream */
+  --color-blue: #c197ff; /* -> lavender */
+  --color-blue-dk: #a876f3;
+  --color-accent: #f2ff00; /* -> neon */
 
   /* type */
-  --font-display: "Archivo", "Arial Narrow", sans-serif;
-  --font-body: "Space Grotesk", system-ui, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-display: "Alan Sans", "Arial Black", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "DM Sans", system-ui, sans-serif;
+
+  /* radii */
+  --radius-card: 32px;
 
   /* section rhythm */
-  --spacing-section: 10rem;   /* 160px */
+  --spacing-section: 10rem;
 
   /* motion */
-  --ease-brand: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ---------- base ---------- */
@@ -36,7 +46,7 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--color-ink);
-  background: var(--color-paper);
+  background: var(--color-cream);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -53,8 +63,8 @@ body {
     font-family: var(--font-display);
     font-weight: 900;
     letter-spacing: -0.02em;
-    line-height: 0.92;
-    text-transform: uppercase;
+    line-height: 1;
+    text-transform: lowercase; /* hiccup: headings are always lowercase */
   }
 
   .label {
@@ -74,11 +84,12 @@ body {
     background: var(--color-blue);
   }
 
-  /* buttons — all pill-shaped */
+  /* buttons — all pill-shaped, lowercase */
   .btn {
     font-family: var(--font-body);
     font-weight: 600;
     font-size: 1rem;
+    text-transform: lowercase;
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
@@ -86,12 +97,12 @@ body {
     cursor: pointer;
     border: 0;
     transition:
-      transform 0.2s var(--ease-brand),
-      background 0.2s var(--ease-brand),
-      color 0.2s var(--ease-brand);
+      transform 0.25s var(--ease-brand),
+      background 0.25s var(--ease-brand),
+      color 0.25s var(--ease-brand);
   }
   .btn .arw {
-    transition: transform 0.2s var(--ease-brand);
+    transition: transform 0.25s var(--ease-brand);
   }
   .btn:hover .arw {
     transform: translateX(4px);
@@ -99,27 +110,32 @@ body {
   .btn:active {
     transform: scale(0.98);
   }
+  /* primary: neon fill, ink text -> hover ink fill, neon text */
   .btn-primary {
-    background: var(--color-blue);
-    color: #fff;
+    background: var(--color-neon);
+    color: var(--color-ink);
     padding: 1.05rem 2rem;
     height: 3.75rem;
     font-size: 1.05rem;
   }
   .btn-primary:hover {
-    background: var(--color-blue-dk);
+    background: var(--color-ink);
+    color: var(--color-neon);
   }
+  /* secondary: ink outline -> hover lavender fill */
   .btn-secondary {
-    background: var(--color-grey-05);
+    background: transparent;
     color: var(--color-ink);
+    border: 1.5px solid var(--color-ink);
     padding: 0.95rem 1.7rem;
     font-size: 1.05rem;
   }
   .btn-secondary .arw {
-    color: var(--color-blue);
+    color: var(--color-ink);
   }
   .btn-secondary:hover {
-    background: var(--color-grey-10);
+    background: var(--color-lavender);
+    border-color: var(--color-lavender);
   }
   .btn-tertiary {
     background: transparent;
@@ -127,7 +143,7 @@ body {
     padding: 0.5rem 0.25rem;
   }
   .btn-tertiary .arw {
-    color: var(--color-blue);
+    color: var(--color-ink);
   }
   .btn-tertiary .txt {
     position: relative;
@@ -138,32 +154,89 @@ body {
     left: 0;
     bottom: -3px;
     width: 0;
-    height: 1.5px;
-    background: currentColor;
+    height: 2px;
+    background: var(--color-neon);
     transition: width 0.2s var(--ease-brand);
   }
   .btn-tertiary:hover .txt::after {
     width: 100%;
   }
 
-  /* rotated print sticker */
+  /* rotated print sticker (neon) */
   .sticker {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-weight: 700;
     font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    background: var(--color-accent);
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+    background: var(--color-neon);
     color: var(--color-ink);
-    padding: 0.5rem 0.85rem;
-    border-radius: 2px;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
     display: inline-block;
-    transform: rotate(-5deg);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transform: rotate(-4deg);
   }
   .sticker-blue {
-    background: var(--color-blue);
-    color: #fff;
+    background: var(--color-lavender);
+    color: var(--color-ink);
+  }
+
+  /* ---------- hiccup signature devices ---------- */
+
+  /* highlighter mark — flat neon behind text, wraps across lines */
+  .hl {
+    background: var(--color-neon);
+    color: var(--color-ink);
+    padding: 0.02em 0.18em;
+    border-radius: 0;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* crescent / C-shape photo crop: big circle minus a bite */
+  .crescent {
+    -webkit-mask-image:
+      radial-gradient(circle at 50% 50%, #000 69%, transparent 70%),
+      radial-gradient(circle at 92% 92%, transparent 30%, #000 31%);
+    mask-image:
+      radial-gradient(circle at 50% 50%, #000 69%, transparent 70%),
+      radial-gradient(circle at 92% 92%, transparent 30%, #000 31%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+
+  /* tilted rounded card, straightens + lifts on hover */
+  .tilt-card {
+    border-radius: var(--radius-card);
+    transform: rotate(var(--tilt, -3deg));
+    transition:
+      transform 0.3s var(--ease-brand),
+      box-shadow 0.3s var(--ease-brand);
+  }
+  .tilt-card:hover {
+    transform: rotate(0deg) translateY(-6px);
+    box-shadow: 0 18px 40px rgba(10, 10, 10, 0.14);
+  }
+
+  /* chunky quote/comma bullet for feature lists */
+  .q-list {
+    list-style: none;
+    padding: 0;
+  }
+  .q-list > li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+  .q-list > li::before {
+    content: "„";
+    position: absolute;
+    left: 0;
+    top: -0.15em;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.3em;
+    line-height: 1;
+    color: var(--color-ink);
   }
 
   /* faint grain used inside dark frames */

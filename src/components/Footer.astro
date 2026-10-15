@@ -39,8 +39,10 @@ const year = new Date().getFullYear();
     <div class="grid grid-cols-1 gap-10 md:grid-cols-12">
       <!-- brand -->
       <div class="md:col-span-3">
-        <a href="/" class="h-display text-2xl">VE<span class="text-blue">CUBE</span></a>
-        <p class="mt-3 max-w-[22ch] text-sm text-grey-60">{footer.brandLine}</p>
+        <a href="/" class="inline-block" aria-label="hiccup home">
+          <img src="/images/hiccup.svg" alt="hiccup" class="h-10 w-auto md:h-12" />
+        </a>
+        <p class="mt-4 max-w-[22ch] text-sm text-white/70">{footer.brandLine}</p>
       </div>
 
       <!-- newsletter -->
