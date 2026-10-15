@@ -250,6 +250,12 @@ body {
   }
 }
 
+/* hiccup: remove the small kicker sub-headings that sit above main headings
+   (these are the only .label elements that carry a .dot) */
+.label:has(.dot) {
+  display: none !important;
+}
+
 /* ---------- interactive services list (Services.astro) ---------- */
 .svc-prev-wrap {
   display: grid;
