@@ -9,23 +9,19 @@ const rest = fitItems.slice(1);
     <span class="label !text-white/70"><span class="dot"></span> {g.tag} · {`{ 07 }`}</span>
     <h2 class="h-display mt-4 max-w-[20ch] text-[clamp(2.5rem,6.5vw,6rem)]">{g.headline}</h2>
 
-    <!-- 01 · the big one (lime callout) -->
+    <!-- the big one (lavender callout) -->
     <div class="mt-10 rounded-[2px] bg-lavender p-8 text-ink md:p-12">
-      <span class="font-mono text-xs uppercase tracking-[0.12em] text-ink/60">
-        {big.num} · {g.bigLabel}
-      </span>
-      <p class="h-display normal-case mt-3 max-w-[22ch] text-[clamp(1.8rem,4.5vw,3.4rem)] leading-[1.05]">
+      <p class="h-display normal-case max-w-[22ch] text-[clamp(1.8rem,4.5vw,3.4rem)] leading-[1.05]">
         {big.text}
       </p>
     </div>
 
-    <!-- 02–06 -->
+    <!-- the rest -->
     <div class="mt-6 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
       {
         rest.map((item) => (
           <div class="border-t-2 border-white/25 pt-4">
-            <span class="font-mono text-sm text-blue">{item.num}</span>
-            <p class="mt-2 text-lg leading-snug text-white/90">{item.text}</p>
+            <p class="text-lg leading-snug text-white/90">{item.text}</p>
           </div>
         ))
       }

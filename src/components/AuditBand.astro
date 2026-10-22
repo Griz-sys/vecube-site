@@ -6,8 +6,8 @@ import { auditBand as a } from "../data/content";
   <div class="wrap grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-14">
     <!-- left: copy -->
     <div>
-      <span class="label"><span class="dot"></span> {a.tag}</span>
-      <h2 class="h-display mt-4 text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.92]">{a.headline}</h2>
+      <span class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink/50">{a.tag}</span>
+      <h2 class="h-display mt-3 text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.92]">{a.headline}</h2>
       <p class="mt-6 max-w-[46ch] text-lg leading-snug text-ink/80">
         A focused session with our senior team on what's holding your business back, and what to fix
         first. <span class="font-bold text-ink">No pitch. No commitment.</span>
@@ -15,7 +15,7 @@ import { auditBand as a } from "../data/content";
     </div>
 
     <!-- right: dark steps card -->
-    <div class="rounded-[2px] bg-ink p-7 text-white md:p-8">
+    <div class="rounded-[24px] bg-ink p-7 text-white md:p-8">
       <ol class="flex flex-col gap-5">
         {
           a.steps.map((step, i) => (

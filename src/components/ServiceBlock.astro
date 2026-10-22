@@ -1,98 +1,75 @@
 ---
 import type { ServiceSection } from "../data/content";
-interface Props { s: ServiceSection }
-const { s } = Astro.props;
-const d = s.dark;
-
-const border = d ? "border-white/15" : "border-grey-10";
-const labelCls = d ? "!text-white/55" : "";
-const desc = d ? "text-white/70" : "text-grey-60";
-const result = d ? "text-accent" : "text-blue";
-const card = d ? "border-white/15 bg-white/[0.03]" : "border-grey-10 bg-paper";
-const muted = d ? "text-white/50" : "text-grey-40";
+interface Props { s: ServiceSection; alt?: boolean }
+const { s, alt = false } = Astro.props;
+const bg = alt ? "bg-grey-05" : "bg-cream";
 ---
 
-<section
-  id={s.anchor}
-  class={`scroll-mt-[9rem] border-t ${border} py-14 md:py-20 ${d ? "grain relative bg-ink text-white" : "bg-paper text-ink"}`}
->
-  <div class={`wrap ${d ? "relative z-10" : ""}`}>
-    <!-- top: giant name (left) + headline / cta (right) -->
-    <div class="grid grid-cols-1 items-end gap-6 md:grid-cols-2">
-      <div class="flex items-end gap-4">
-        <span class={`font-mono text-[0.7rem] uppercase leading-[1.4] tracking-[0.1em] ${muted}`}>
-          {`{ ${s.num} }`}<br />{s.label}
+<section id={s.anchor} class={`scroll-mt-[11rem] border-t border-grey-10 ${bg}`}>
+  <div class="wrap py-16 md:py-24">
+    <!-- HEADER: name + headline grouped left, cta + "when" on the right -->
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end">
+      <div class="md:col-span-7">
+        <span class="font-mono text-xs uppercase tracking-[0.14em] text-grey-40">
+          {s.num} · {s.label}
         </span>
-        <h2 class="h-display text-[clamp(3rem,8vw,7rem)] leading-[0.82]">{s.name}.</h2>
-      </div>
-      <div class="md:text-right">
-        <p class="text-[clamp(1.3rem,2.6vw,2rem)] font-bold leading-tight">
+        <h2 class="h-display mt-3 text-[clamp(3rem,9vw,6rem)] leading-[0.85]">{s.name}.</h2>
+        <p class="mt-6 max-w-[22ch] text-[clamp(1.4rem,2.6vw,2.1rem)] font-bold leading-[1.1]">
           {s.headlinePre} <span class="text-blue">{s.headlineAccent}</span>
         </p>
-        {s.cta.style === "button" && (
-          <a class="btn btn-primary mt-5" href={s.cta.href}>
+      </div>
+
+      <div class="md:col-span-5 md:pl-6">
+        <div class="md:text-right">
+          <a class="btn btn-primary" href={s.cta.href}>
             {s.cta.label} <span class="arw">→</span>
           </a>
-        )}
+          {s.cta.reply && (
+            <p class="mt-3 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-grey-40">{s.cta.reply}</p>
+          )}
+        </div>
+
+        <div class="mt-8">
+          <p class="label">When clients call us</p>
+          <ul class="mt-3 flex flex-wrap gap-2 md:justify-end">
+            {s.when.map((w) => (
+              <li class="rounded-full border border-grey-20 px-3.5 py-1.5 text-sm text-grey-60">{w}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
 
-    <div class={`mt-8 border-t ${border}`}></div>
-
-    <!-- two columns: when + what -->
-    <div class="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
-      <div>
-        <p class={`label ${labelCls}`}>When clients usually call us</p>
-        <ul class={`mt-4 border-t ${border}`}>
-          {s.when.map((w) => (
-            <li class={`border-b ${border} py-4`}>
-              <span class="h-display text-lg md:text-xl">{w}</span>
-            </li>
-          ))}
-        </ul>
-        {s.cta.style === "link" && (
-          <a class="btn btn-tertiary mt-5 !px-0" href={s.cta.href}>
-            <span class="txt text-blue">{s.cta.label}</span> <span class="arw">→</span>
-          </a>
-        )}
-      </div>
-
-      <div>
-        <p class={`label ${labelCls}`}>What we do</p>
-        {s.groups.map((g) => (
-          <div class="mt-4">
-            {g.title && <p class={`label ${labelCls} mb-1 !text-[0.68rem]`}>{g.title}</p>}
-            <ul class={`border-t ${border}`}>
+    <!-- WHAT WE DO: clean card grid -->
+    <div class="mt-14 md:mt-16">
+      <p class="label">What we do</p>
+      {
+        s.groups.map((g) => (
+          <div class="mt-5">
+            {g.title && (
+              <p class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-grey-40">{g.title}</p>
+            )}
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {g.items.map((it) => (
-                <li class={`border-b ${border} py-4`}>
-                  <span class="h-display text-lg">{it.name}</span>
-                  <p class={`mt-1 ${desc}`}>{it.desc}</p>
-                </li>
+                <div class="rounded-[18px] border border-grey-10 bg-cream/70 p-5 transition-colors hover:border-grey-20">
+                  <h3 class="h-display text-xl">{it.name}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-grey-60">{it.desc}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
-        ))}
-      </div>
+        ))
+      }
     </div>
 
-    <!-- cta bar (dev, venture) -->
-    {s.cta.style === "bar" && (
+    <!-- PROOF + WORKS BEST WITH -->
+    <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-[1.5fr_1fr]">
       <a
-        href={s.cta.href}
-        class="mt-10 flex flex-wrap items-center justify-between gap-3 rounded-[2px] bg-ink px-6 py-5 text-white"
+        href="/work"
+        class="group flex items-center gap-5 rounded-[20px] border border-grey-10 bg-cream p-5 transition-shadow hover:shadow-[0_18px_40px_-24px_rgba(10,10,10,0.5)]"
       >
-        <span class="h-display text-lg md:text-xl">{s.cta.label}</span>
-        <span class="font-mono text-xs uppercase tracking-[0.08em] text-accent">
-          {s.cta.reply ? `${s.cta.reply} →` : "→"}
-        </span>
-      </a>
-    )}
-
-    <!-- proof + works best with -->
-    <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-      <div class={`flex gap-5 rounded-[2px] border ${card} p-5`}>
         <div
-          class="relative flex h-24 w-28 flex-none items-center justify-center overflow-hidden rounded-[2px]"
+          class="relative flex h-28 w-32 flex-none items-center justify-center overflow-hidden rounded-[14px]"
           style={`background:${s.proof.color}`}
         >
           <span class={`px-2 text-center text-sm font-bold ${s.proof.light ? "text-ink" : "text-white"}`}>
@@ -107,29 +84,31 @@ const muted = d ? "text-white/50" : "text-grey-40";
             />
           )}
         </div>
-        <div>
-          <span class={`font-mono text-[0.66rem] uppercase tracking-[0.1em] ${muted}`}>{s.proof.label}</span>
-          <p class="mt-1 font-bold leading-snug">{s.proof.line}</p>
-          <p class={`mt-1 text-sm font-bold ${result}`}>{s.proof.result}</p>
-          <a class={`btn btn-tertiary mt-2 !px-0 ${d ? "!text-white" : ""}`} href="/#work">
-            <span class="txt">See the case</span> <span class="arw">→</span>
-          </a>
+        <div class="min-w-0">
+          <span class="font-mono text-[0.64rem] uppercase tracking-[0.12em] text-grey-40">{s.proof.label}</span>
+          <p class="mt-1 font-bold leading-snug text-ink">{s.proof.line}</p>
+          <p class="mt-1 text-sm font-bold text-blue-dk">{s.proof.result}</p>
+          <span class="btn-tertiary mt-2 inline-flex items-center text-sm font-semibold lowercase">
+            <span class="txt">see the case</span> <span class="arw ml-1">→</span>
+          </span>
         </div>
-      </div>
+      </a>
 
-      <div class={`rounded-[2px] border ${card} p-5`}>
-        <p class={`label ${labelCls}`}>Works best with</p>
+      <div class="rounded-[20px] border border-grey-10 p-5">
+        <p class="label">Works best with</p>
         <div class="mt-3 flex flex-wrap gap-2">
-          {s.worksWith.links.map((l) => (
-            <a
-              href={l.href}
-              class={`rounded-full border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.04em] transition-colors ${d ? "border-white/25 text-white hover:bg-white hover:text-ink" : "border-grey-20 text-ink hover:bg-ink hover:text-white"}`}
-            >
-              {l.label} →
-            </a>
-          ))}
+          {
+            s.worksWith.links.map((l) => (
+              <a
+                href={l.href}
+                class="rounded-full border border-grey-20 px-3.5 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.04em] text-ink transition-colors hover:bg-ink hover:text-cream"
+              >
+                {l.label} →
+              </a>
+            ))
+          }
         </div>
-        <p class={`mt-3 max-w-[40ch] text-sm ${desc}`}>{s.worksWith.line}</p>
+        <p class="mt-3 max-w-[40ch] text-sm leading-relaxed text-grey-60">{s.worksWith.line}</p>
       </div>
     </div>
   </div>

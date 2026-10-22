@@ -12,7 +12,7 @@ export const site = {
 
 export const nav: { label: string; href: string }[] = [
   { label: "Services", href: "/services" },
-  { label: "Work", href: "/#work" },
+  { label: "Work", href: "/work" },
   { label: "How we work", href: "/#how-we-work" },
   { label: "Contact", href: "/contact" },
 ];
@@ -31,15 +31,17 @@ export const hero = {
     "The Vecube team surrounded by the tools of brand, media and technology work",
 };
 
-export const clients: string[] = [
-  "Amara",
-  "Leverage Edu",
-  "FitPaisa",
-  "The Wedding Company",
-  "GMS",
-  "Expatria",
-  "MK's",
-  "EMS",
+export type Client = { name: string; logo?: string };
+
+export const clients: Client[] = [
+  { name: "Amara", logo: "/images/work/amara.avif" },
+  { name: "Leverage Edu", logo: "/images/work/leverage-edu.avif" },
+  { name: "FitPaisa", logo: "/images/work/fitpaisa.avif" },
+  { name: "The Wedding Company", logo: "/images/work/the-wedding-company.avif" },
+  { name: "GMS", logo: "/images/work/gms.avif" },
+  { name: "Expatria" },
+  { name: "MK's" },
+  { name: "EMS" },
 ];
 
 export type ServiceGroup = {
@@ -196,6 +198,130 @@ export const work: CaseStudy[] = [
   },
 ];
 
+// ---------------------------------------------------------------
+// WORK PAGE (/work) — filterable case grid + per-case detail pages
+// ---------------------------------------------------------------
+export const workPage = {
+  tag: "Our work",
+  headline: "Work that ships, not slides that sit.",
+  line: "Strategy, brand, media and tech, owned end to end by one team.",
+  // filter pills across the top of the grid
+  filters: ["All", "Brand", "Media", "Dev", "Venture"],
+  underwayTag: "Also underway",
+  underwayLine: "Engagements in flight. More to show soon.",
+  credentials: {
+    tag: "Credentials",
+    headline: "Want the full picture?",
+    headlineAccent: "Download our credentials.",
+    cta: "Download PDF",
+    fields: [
+      { name: "name", label: "Name", type: "text" },
+      { name: "email", label: "Work email", type: "email" },
+      { name: "company", label: "Company", type: "text" },
+    ],
+  },
+  closing: {
+    headline: "Share the business problem.",
+    headlineAccent: "We'll show you how we'd approach it.",
+    line: "Book a free 30 minute consultation with our senior team.",
+    cta: "Book a free consultation",
+    href: "/contact",
+  },
+};
+
+export type WorkCase = {
+  slug: string;
+  client: string;
+  title: string; // bold card headline — lead with what moved
+  disciplines: string[]; // drives the filter: Brand / Media / Dev / Venture
+  market?: string; // e.g. "Germany, Europe"
+  asset: string; // placeholder label shown on the tile until a real image is added
+  // drop a case image into /public/images/work/ and set the path here to replace the tile
+  image?: string;
+  color?: string; // tile tint
+  // --- detail-page copy (placeholders — swap for the real story) ---
+  summary?: string;
+  challenge?: string;
+  approach?: string[];
+  result?: string;
+};
+
+// ordered strongest-proof first (matches the /work grid)
+export const workCases: WorkCase[] = [
+  {
+    slug: "leverage-edu",
+    client: "Leverage Edu",
+    title: "Replacing spreadsheets with a platform built to scale across Europe",
+    disciplines: ["Dev"],
+    market: "Germany, Europe",
+    asset: "Leverage Edu platform dashboard",
+    color: "#eef2fb",
+    summary: "[One paragraph on what the work moved for Leverage Edu.]",
+    challenge: "[What was stuck before we started.]",
+    approach: ["[What we did — step one]", "[Step two]", "[Step three]"],
+    result: "[Verified result]",
+  },
+  {
+    slug: "expatria",
+    client: "Expatria",
+    title: "From relocation provider to enterprise mobility partner",
+    disciplines: ["Brand", "Venture"],
+    market: "India, Singapore",
+    asset: "Expatria new identity",
+    color: "#2b2f45",
+    summary: "[One paragraph on what the work moved for Expatria.]",
+    challenge: "[What was stuck before we started.]",
+    approach: ["[What we did — step one]", "[Step two]", "[Step three]"],
+    result: "[Verified result]",
+  },
+  {
+    slug: "amara",
+    client: "Amara",
+    title: "Building a Bengaluru dessert brand people remember", // [editable — title was cropped in the brief]
+    disciplines: ["Brand", "Media"],
+    market: "Bengaluru",
+    asset: "Amara packaging",
+    color: "#7a1f3d",
+    summary: "[One paragraph on what the work moved for Amara.]",
+    challenge: "[What was stuck before we started.]",
+    approach: ["[What we did — step one]", "[Step two]", "[Step three]"],
+    result: "[Verified result]",
+  },
+  {
+    slug: "fitpaisa",
+    client: "FitPaisa",
+    title: "Earning trust for a fintech with nothing to hide", // [editable — title was cropped in the brief]
+    disciplines: ["Brand", "Dev", "Media"],
+    market: "India",
+    asset: "FitPaisa website and app",
+    color: "#16305c",
+    summary: "[One paragraph on what the work moved for FitPaisa.]",
+    challenge: "[What was stuck before we started.]",
+    approach: ["[What we did — step one]", "[Step two]", "[Step three]"],
+    result: "[Verified result]",
+  },
+  {
+    slug: "mks",
+    client: "MK's",
+    title: "Finding the whitespace for a new retail category", // [editable — title was cropped in the brief]
+    disciplines: ["Venture", "Brand", "Dev"],
+    market: "India",
+    asset: "MK's storefront",
+    color: "#3a2f1f",
+    summary: "[One paragraph on what the work moved for MK's.]",
+    challenge: "[What was stuck before we started.]",
+    approach: ["[What we did — step one]", "[Step two]", "[Step three]"],
+    result: "[Verified result]",
+  },
+];
+
+export type WorkUnderway = { client: string; line: string; disciplines: string[] };
+
+export const workUnderway: WorkUnderway[] = [
+  { client: "GMS", line: "[One line on the engagement]", disciplines: ["Venture", "Brand", "Dev"] },
+  { client: "EMS", line: "[One line on the engagement]", disciplines: ["Brand", "Dev"] },
+];
+
 export const midCta = {
   headline: "You don't need another agency deck.",
   line: "You need the right people in the room. We'll tell you honestly if we can help.",
@@ -344,7 +470,7 @@ export const footer = {
   cities: "[City / cities]",
   links: [
     { label: "About", href: "/about" },
-    { label: "Work", href: "/#work" },
+    { label: "Work", href: "/work" },
     { label: "Contact", href: "/contact" },
     { label: "Privacy Policy", href: "#" },
     { label: "LinkedIn", href: "#" },
@@ -589,7 +715,7 @@ export const servicesClosing = {
   line: "Book a free 30-minute audit and we'll show you where to start. Even if the answer isn't us.",
   buttons: [
     { label: "Book a free 30-min audit", href: "/contact" },
-    { label: "See our work", href: "/#work" },
+    { label: "See our work", href: "/work" },
   ],
   signoff: "Fix the cause. Not the symptom.",
 };

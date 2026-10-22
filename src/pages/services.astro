@@ -16,12 +16,9 @@ import {
   description="Brand, media, tech and strategy under one team. Start with one service or bring in all four — one team owns the plan, the work and the results."
 >
   <!-- HERO -->
-  <section class="py-10 md:py-14">
+  <section class="py-12 md:py-16">
     <div class="wrap">
-      <div class="flex flex-wrap items-start justify-between gap-4">
-        <span class="label"><span class="dot"></span> {hero.tag}</span>
-        <span class="sticker">{hero.sticker}</span>
-      </div>
+      <span class="sticker">{hero.sticker}</span>
       <h1 class="h-display mt-6 max-w-[16ch] text-[clamp(2.75rem,9vw,7.5rem)]">
         {hero.headlineMain} <span class="text-blue">{hero.headlineAccent}</span>
       </h1>
@@ -38,20 +35,21 @@ import {
     </div>
   </section>
 
-  <!-- SOLUTION BAR (sticky, dark) -->
-  <nav id="solution-bar" class="sticky top-[6.25rem] z-40 bg-ink text-white">
-    <div class="wrap grid grid-cols-2 md:grid-cols-4">
+  <!-- SECTION NAV (sticky, slim, light) -->
+  <nav
+    id="solution-bar"
+    class="sticky z-40 border-b border-grey-10 bg-cream/85 backdrop-blur"
+    style="top: var(--header-h, 6.75rem)"
+  >
+    <div class="wrap flex items-stretch gap-1 overflow-x-auto">
       {
-        serviceSections.map((s, i) => (
+        serviceSections.map((s) => (
           <a
             href={`#${s.anchor}`}
             data-spy={s.anchor}
-            class={`spy-link group flex flex-col gap-1 border-white/15 px-5 py-4 ${i > 0 ? "border-l" : ""}`}
+            class="spy-link whitespace-nowrap px-4 py-3.5 text-[1.05rem] font-medium lowercase md:px-5"
           >
-            <span class="font-mono text-[0.62rem] uppercase tracking-[0.08em] text-white/50">
-              {s.num} · {s.label}
-            </span>
-            <span class="h-display text-lg md:text-xl">{s.name}</span>
+            {s.name}
           </a>
         ))
       }
@@ -59,49 +57,42 @@ import {
   </nav>
 
   <!-- SERVICE BLOCKS (audit band after Media) -->
-  {serviceSections.slice(0, 2).map((s) => <ServiceBlock s={s} />)}
+  {serviceSections.slice(0, 2).map((s, i) => <ServiceBlock s={s} alt={i % 2 === 1} />)}
   <AuditBand />
-  {serviceSections.slice(2).map((s) => <ServiceBlock s={s} />)}
+  {serviceSections.slice(2).map((s, i) => <ServiceBlock s={s} alt={(i + 2) % 2 === 1} />)}
 
   <!-- HOW THE FOUR WORK TOGETHER -->
-  <section class="border-t border-grey-10 bg-grey-05 py-14 md:py-20">
+  <section class="border-t border-grey-10 bg-cream py-16 md:py-24">
     <div class="wrap">
-      <span class="label"><span class="dot"></span> {together.tag}</span>
-      <h2 class="h-display mt-4 text-[clamp(2.25rem,6vw,5rem)]">{together.headline}</h2>
+      <h2 class="h-display text-[clamp(2.25rem,6vw,5rem)]">{together.headline}</h2>
       <p class="mt-5 max-w-[48ch] text-lg text-grey-60">{together.line}</p>
 
-      <ol class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ol class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
-          together.steps.map((step, i) => {
-            const themes = [
-              "bg-blue text-white",
-              "bg-accent text-ink",
-              "bg-grey-10 text-ink",
-              "bg-ink text-white",
-            ];
-            return (
-              <li class={`flex min-h-[190px] flex-col justify-between rounded-[2px] p-6 ${themes[i % 4]}`}>
-                <span class="font-mono text-xs uppercase tracking-[0.1em] opacity-70">
-                  Step {i + 1} · {step.label}
-                </span>
-                <p class="mt-6 text-lg font-bold leading-snug">{step.text}</p>
-              </li>
-            );
-          })
+          together.steps.map((step, i) => (
+            <li class="flex min-h-[200px] flex-col rounded-[20px] border border-grey-10 bg-grey-05 p-6">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-neon font-mono text-sm font-bold text-ink">
+                {i + 1}
+              </span>
+              <span class="mt-6 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-grey-40">
+                {step.label}
+              </span>
+              <p class="mt-2 text-lg font-bold leading-snug">{step.text}</p>
+            </li>
+          ))
         }
       </ol>
-      <p class="h-display mt-10 text-[clamp(1.4rem,3vw,2.4rem)]">
+      <p class="h-display mt-12 text-[clamp(1.4rem,3vw,2.4rem)]">
         One team. One plan. <span class="text-blue">One point of contact.</span>
       </p>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="border-t border-grey-10 py-14 md:py-20">
+  <section class="border-t border-grey-10 bg-grey-05 py-16 md:py-24">
     <div class="wrap grid grid-cols-1 gap-10 md:grid-cols-12">
       <div class="md:col-span-4">
-        <span class="label"><span class="dot"></span> {faq.tag}</span>
-        <h2 class="h-display mt-4 text-[clamp(2.25rem,6vw,4.5rem)]">{faq.headline}</h2>
+        <h2 class="h-display text-[clamp(2.25rem,6vw,4.5rem)]">{faq.headline}</h2>
       </div>
       <div class="md:col-span-7 md:col-start-6">
         <div class="border-t border-grey-10">

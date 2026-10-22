@@ -50,6 +50,34 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* floating pill over the hero → full-width top bar once scrolled past it.
+   The dark background moves from the pill onto the header, the top gap
+   collapses and the corners square off, so the pill grows edge-to-edge. */
+#site-header {
+  transition:
+    background-color 0.3s var(--ease-brand),
+    box-shadow 0.3s var(--ease-brand);
+}
+#nav-inner {
+  transition: padding-top 0.3s var(--ease-brand);
+}
+#nav-pill {
+  transition:
+    background-color 0.3s var(--ease-brand),
+    border-radius 0.3s var(--ease-brand);
+}
+#site-header.is-scrolled {
+  background: var(--color-ink);
+  box-shadow: 0 1px 0 rgba(10, 10, 10, 0.25);
+}
+#site-header.is-scrolled #nav-inner {
+  padding-top: 0;
+}
+#site-header.is-scrolled #nav-pill {
+  background: transparent;
+  border-radius: 0;
+}
+
 /* ---------- reusable editorial pieces ---------- */
 @layer components {
   .wrap {
@@ -256,6 +284,67 @@ body {
   display: none !important;
 }
 
+/* ---------- Work page (/work): filter chips + case tiles ---------- */
+/* standalone tag (no .dot) stays visible — the kicker rule above only hides dotted labels */
+.chip {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: lowercase;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-ink);
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition:
+    background 0.2s var(--ease-brand),
+    color 0.2s var(--ease-brand),
+    transform 0.2s var(--ease-brand);
+}
+.chip:hover {
+  transform: translateY(-1px);
+}
+.chip.is-active {
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+
+/* the case cards fade/collapse when filtered out */
+.work-card {
+  transition:
+    opacity 0.25s var(--ease-brand),
+    transform 0.25s var(--ease-brand);
+}
+.work-card.is-hidden {
+  display: none;
+}
+
+/* tile: soft tinted panel with the asset label until a real image is dropped in */
+.work-tile {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--color-grey-10);
+  background: var(--color-grey-05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.3s var(--ease-brand),
+    box-shadow 0.3s var(--ease-brand);
+}
+.work-card:hover .work-tile {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -22px rgba(10, 10, 10, 0.5);
+}
+.work-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* ---------- interactive services list (Services.astro) ---------- */
 .svc-prev-wrap {
   display: grid;
@@ -311,26 +400,64 @@ body {
   border-radius: 999px;
 }
 
-/* ---------- Services page solution bar scroll-spy (dark bar) ---------- */
+/* ---------- Services page section nav scroll-spy (slim light bar) ---------- */
 .spy-link {
-  opacity: 0.55;
-  transition:
-    opacity 0.2s var(--ease-brand),
-    background 0.2s var(--ease-brand);
+  position: relative;
+  color: var(--color-grey-40);
+  transition: color 0.2s var(--ease-brand);
+}
+.spy-link::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-neon);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s var(--ease-brand);
 }
 .spy-link:hover {
-  opacity: 1;
-}
-/* active cell inverts: white background, dark text */
-.spy-link.spy-active {
-  opacity: 1;
-  background: var(--color-paper);
-}
-.spy-link.spy-active .h-display {
   color: var(--color-ink);
 }
-.spy-link.spy-active .font-mono {
-  color: var(--color-grey-60);
+.spy-link.spy-active {
+  color: var(--color-ink);
+}
+.spy-link.spy-active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Services card-swap deck (ServicesDeck.astro) ---------- */
+.deck-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: min(620px, 72vh);
+}
+.deck {
+  position: relative;
+  width: min(560px, 90vw);
+  height: min(440px, 58vh);
+  transform-style: preserve-3d;
+}
+.deck-card {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  will-change: transform, opacity, filter;
+  transition:
+    transform 0.6s var(--ease-brand),
+    opacity 0.45s ease,
+    filter 0.6s ease;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.8);
+  border-radius: 24px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .deck-card {
+    transition: none;
+  }
 }
 
 /* ---------- Services sticky stack (StickyServices.astro) ---------- */
