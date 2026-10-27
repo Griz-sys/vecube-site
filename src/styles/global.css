@@ -345,6 +345,18 @@ body {
   object-fit: cover;
 }
 
+/* ---------- services page: hoverable capability list ---------- */
+.svc-cap:hover,
+.svc-cap.is-active {
+  color: var(--color-ink);
+}
+.svc-cap.is-active .svc-dot {
+  opacity: 1;
+}
+.svc-cap:focus-visible {
+  outline: none;
+}
+
 /* ---------- interactive services list (Services.astro) ---------- */
 .svc-prev-wrap {
   display: grid;

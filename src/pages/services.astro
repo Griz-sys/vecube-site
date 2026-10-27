@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ServiceBlock from "../components/ServiceBlock.astro";
-import AuditBand from "../components/AuditBand.astro";
 import {
   servicesHero as hero,
   serviceSections,
@@ -56,10 +55,8 @@ import {
     </div>
   </nav>
 
-  <!-- SERVICE BLOCKS (audit band after Media) -->
-  {serviceSections.slice(0, 2).map((s, i) => <ServiceBlock s={s} alt={i % 2 === 1} />)}
-  <AuditBand />
-  {serviceSections.slice(2).map((s, i) => <ServiceBlock s={s} alt={(i + 2) % 2 === 1} />)}
+  <!-- SERVICE BLOCKS -->
+  {serviceSections.map((s) => <ServiceBlock s={s} />)}
 
   <!-- HOW THE FOUR WORK TOGETHER -->
   <section class="border-t border-grey-10 bg-cream py-16 md:py-24">

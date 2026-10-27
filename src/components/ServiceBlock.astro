@@ -3,113 +3,105 @@ import type { ServiceSection } from "../data/content";
 interface Props { s: ServiceSection; alt?: boolean }
 const { s, alt = false } = Astro.props;
 const bg = alt ? "bg-grey-05" : "bg-cream";
+
+// three themed photos per service (/public/images/services/<anchor>-1..3.jpg)
+const tiles = [1, 2, 3].map((k) => `/images/services/${s.anchor}-${k}.jpg`);
 ---
 
-<section id={s.anchor} class={`scroll-mt-[11rem] border-t border-grey-10 ${bg}`}>
-  <div class="wrap py-16 md:py-24">
-    <!-- HEADER: name + headline grouped left, cta + "when" on the right -->
-    <div class="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-end">
-      <div class="md:col-span-7">
+<section id={s.anchor} class={`svc-section scroll-mt-[10rem] border-t border-grey-10 ${bg}`}>
+  <div class="wrap py-12 md:py-16">
+    <div class="grid grid-cols-1 gap-y-8 lg:grid-cols-[1fr_1.9fr] lg:gap-x-12">
+      <!-- LEFT: name + hoverable sub-list -->
+      <div>
         <span class="font-mono text-xs uppercase tracking-[0.14em] text-grey-40">
           {s.num} · {s.label}
         </span>
-        <h2 class="h-display mt-3 text-[clamp(3rem,9vw,6rem)] leading-[0.85]">{s.name}.</h2>
-        <p class="mt-6 max-w-[22ch] text-[clamp(1.4rem,2.6vw,2.1rem)] font-bold leading-[1.1]">
-          {s.headlinePre} <span class="text-blue">{s.headlineAccent}</span>
-        </p>
-      </div>
-
-      <div class="md:col-span-5 md:pl-6">
-        <div class="md:text-right">
-          <a class="btn btn-primary" href={s.cta.href}>
-            {s.cta.label} <span class="arw">→</span>
-          </a>
-          {s.cta.reply && (
-            <p class="mt-3 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-grey-40">{s.cta.reply}</p>
-          )}
-        </div>
-
-        <div class="mt-8">
-          <p class="label">When clients call us</p>
-          <ul class="mt-3 flex flex-wrap gap-2 md:justify-end">
-            {s.when.map((w) => (
-              <li class="rounded-full border border-grey-20 px-3.5 py-1.5 text-sm text-grey-60">{w}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- WHAT WE DO: clean card grid -->
-    <div class="mt-14 md:mt-16">
-      <p class="label">What we do</p>
-      {
-        s.groups.map((g) => (
-          <div class="mt-5">
-            {g.title && (
-              <p class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-grey-40">{g.title}</p>
-            )}
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {g.items.map((it) => (
-                <div class="rounded-[18px] border border-grey-10 bg-cream/70 p-5 transition-colors hover:border-grey-20">
-                  <h3 class="h-display text-xl">{it.name}</h3>
-                  <p class="mt-2 text-sm leading-relaxed text-grey-60">{it.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))
-      }
-    </div>
-
-    <!-- PROOF + WORKS BEST WITH -->
-    <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-[1.5fr_1fr]">
-      <a
-        href="/work"
-        class="group flex items-center gap-5 rounded-[20px] border border-grey-10 bg-cream p-5 transition-shadow hover:shadow-[0_18px_40px_-24px_rgba(10,10,10,0.5)]"
-      >
-        <div
-          class="relative flex h-28 w-32 flex-none items-center justify-center overflow-hidden rounded-[14px]"
-          style={`background:${s.proof.color}`}
-        >
-          <span class={`px-2 text-center text-sm font-bold ${s.proof.light ? "text-ink" : "text-white"}`}>
-            {s.proof.client}
-          </span>
-          {s.proof.image && (
-            <img
-              src={s.proof.image}
-              alt={s.proof.client}
-              onerror="this.remove()"
-              class="absolute inset-0 h-full w-full object-cover"
-            />
-          )}
-        </div>
-        <div class="min-w-0">
-          <span class="font-mono text-[0.64rem] uppercase tracking-[0.12em] text-grey-40">{s.proof.label}</span>
-          <p class="mt-1 font-bold leading-snug text-ink">{s.proof.line}</p>
-          <p class="mt-1 text-sm font-bold text-blue-dk">{s.proof.result}</p>
-          <span class="btn-tertiary mt-2 inline-flex items-center text-sm font-semibold lowercase">
-            <span class="txt">see the case</span> <span class="arw ml-1">→</span>
-          </span>
-        </div>
-      </a>
-
-      <div class="rounded-[20px] border border-grey-10 p-5">
-        <p class="label">Works best with</p>
-        <div class="mt-3 flex flex-wrap gap-2">
+        <h2 class="h-display mt-2 text-[clamp(2rem,4vw,3rem)] leading-[0.9]">{s.name}.</h2>
+        <div class="svc-list mt-6 space-y-5">
           {
-            s.worksWith.links.map((l) => (
+            s.groups.map((g) => (
+              <div>
+                {g.title && (
+                  <p class="mb-2 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-grey-40">{g.title}</p>
+                )}
+                <ul class="space-y-1.5">
+                  {g.items.map((it) => (
+                    <li
+                      class="svc-cap group flex cursor-pointer items-center gap-2 leading-snug text-grey-60 transition-colors hover:text-ink"
+                      tabindex="0"
+                      data-name={it.name}
+                      data-desc={it.desc}
+                    >
+                      <span class="svc-dot h-1.5 w-1.5 flex-none rounded-full bg-blue opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                      <span>{it.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- RIGHT: description (swaps on hover) + image strip -->
+      <div>
+        <div class="svc-detail min-h-[6rem]">
+          <div class="svc-detail-text max-w-[44ch] text-xl leading-snug md:text-2xl">
+            {s.headlinePre} <span class="text-blue">{s.headlineAccent}</span>
+          </div>
+        </div>
+        <div class="mt-7 grid grid-cols-3 gap-3 md:gap-4">
+          {
+            tiles.map((src) => (
               <a
-                href={l.href}
-                class="rounded-full border border-grey-20 px-3.5 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.04em] text-ink transition-colors hover:bg-ink hover:text-cream"
+                href="/work"
+                class="group relative aspect-[4/5] overflow-hidden rounded-[16px] bg-grey-05 transition-transform duration-300 hover:-translate-y-1"
               >
-                {l.label} →
+                <img
+                  src={src}
+                  alt={`${s.name} work`}
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                  class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               </a>
             ))
           }
         </div>
-        <p class="mt-3 max-w-[40ch] text-sm leading-relaxed text-grey-60">{s.worksWith.line}</p>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  // Hover a capability → the right-side description shows that capability's blurb.
+  // Bundled once by Astro even though <ServiceBlock> renders multiple times.
+  document.querySelectorAll<HTMLElement>(".svc-section").forEach((sec) => {
+    const detail = sec.querySelector<HTMLElement>(".svc-detail-text");
+    const list = sec.querySelector<HTMLElement>(".svc-list");
+    if (!detail || !list) return;
+    const fallback = detail.innerHTML;
+    const caps = Array.from(sec.querySelectorAll<HTMLElement>(".svc-cap"));
+
+    const show = (cap: HTMLElement) => {
+      const name = cap.dataset.name ?? "";
+      const desc = cap.dataset.desc ?? "";
+      detail.innerHTML =
+        `<span class="block h-display text-2xl md:text-3xl">${name}</span>` +
+        `<span class="mt-2 block text-base leading-snug text-grey-60 md:text-lg">${desc}</span>`;
+      caps.forEach((c) => c.classList.remove("is-active"));
+      cap.classList.add("is-active");
+    };
+    const reset = () => {
+      detail.innerHTML = fallback;
+      caps.forEach((c) => c.classList.remove("is-active"));
+    };
+
+    caps.forEach((cap) => {
+      cap.addEventListener("mouseenter", () => show(cap));
+      cap.addEventListener("focus", () => show(cap));
+      cap.addEventListener("click", () => show(cap));
+    });
+    list.addEventListener("mouseleave", reset);
+  });
+</script>
