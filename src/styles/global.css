@@ -344,6 +344,11 @@ body {
   height: 100%;
   object-fit: cover;
 }
+/* logos / marks: show the whole image on the tile's solid background */
+.work-tile--contain img {
+  object-fit: contain;
+  padding: 1.5rem;
+}
 
 /* ---------- services page: hoverable capability list ---------- */
 .svc-cap:hover,

@@ -44,7 +44,16 @@ const cats = (d: string[]) => d.map((x) => x.toLowerCase()).join(",");
         {
           workCases.map((c) => (
             <a href={`/work/${c.slug}`} class="work-card group block" data-cats={cats(c.disciplines)}>
-              <div class="work-tile" style={`background:${c.color ? c.color + "14" : "var(--color-grey-05)"}`}>
+              <div
+                class:list={["work-tile", { "work-tile--contain": c.imageFit === "contain" }]}
+                style={`background:${
+                  c.imageFit === "contain"
+                    ? c.color ?? "var(--color-ink)"
+                    : c.color
+                      ? c.color + "14"
+                      : "var(--color-grey-05)"
+                }`}
+              >
                 {c.image ? (
                   <img src={c.image} alt={c.asset} loading="lazy" />
                 ) : (

@@ -229,6 +229,67 @@ export const workPage = {
   },
 };
 
+// a full, written-up case study (the richer detail-page layout).
+// when a case has `story`, the detail page renders the long form;
+// otherwise it falls back to the short summary/challenge/approach layout.
+//
+// the middle of the story is a list of `blocks` — pick the ones a case needs.
+// each block renders a section in the hiccup style (cream/ink/lavender/neon).
+export type CaseBlock =
+  // 3-up positioning map: two plain cards + one highlighted (dark) card
+  | {
+      kind: "positioning";
+      cards: { eyebrow?: string; title: string; note: string; highlight?: boolean }[];
+    }
+  // light section: tag + big headline + numbered columns with top rules
+  | {
+      kind: "steps";
+      tag: string;
+      headline: string;
+      items: { title: string; text: string }[];
+    }
+  // reposition: tag + headline + copy on the left, a FROM → TO pair on the right
+  | {
+      kind: "reposition";
+      tag?: string;
+      headline: string;
+      text: string;
+      from: string;
+      to: string;
+    }
+  // funnel: tag + headline + copy + an ordered mini-list on the left, a device mock on the right
+  | {
+      kind: "funnel";
+      tag?: string;
+      headline: string;
+      text: string;
+      items: string[]; // short step labels; the middle one is emphasised
+      mockCaption?: string; // placeholder caption under the device frame
+    }
+  // dark phase cards: tag + headline + copy + numbered cards, one highlighted
+  | {
+      kind: "phases";
+      tag?: string;
+      headline: string;
+      text: string;
+      cards: { title: string; text: string; highlight?: boolean }[];
+    };
+
+export type CaseStory = {
+  label: string; // eyebrow: "Case study · MK's · QSR · Noida, India"
+  headlinePre: string; // ink part of the headline
+  headlineAccent: string; // accent part of the headline
+  intro: string; // the paragraph under the headline
+  heroCaption?: string; // placeholder caption inside the hero tile (when there's no image)
+  facts: { label: string; value: string }[]; // client / category / starting point / what we did
+  stepper?: { num: string; label: string; highlight?: boolean }[]; // optional phase chips under the facts
+  blocks: CaseBlock[]; // the body of the case study
+  learnedTag: string; // "What we learned"
+  learned: { title: string; text: string }[];
+  learnedDark?: boolean; // render the lessons on a dark band instead of light
+  closing: { headline: string; line: string; cta: string; href: string };
+};
+
 export type WorkCase = {
   slug: string;
   client: string;
@@ -238,12 +299,17 @@ export type WorkCase = {
   asset: string; // placeholder label shown on the tile until a real image is added
   // drop a case image into /public/images/work/ and set the path here to replace the tile
   image?: string;
-  color?: string; // tile tint
+  // "cover" (default) fills the tile — for photos. "contain" shows the whole image on a
+  // solid `color` background — for logos / marks that shouldn't be cropped.
+  imageFit?: "cover" | "contain";
+  color?: string; // tile tint (or solid background when imageFit is "contain")
   // --- detail-page copy (placeholders — swap for the real story) ---
   summary?: string;
   challenge?: string;
   approach?: string[];
   result?: string;
+  // --- long-form case study (overrides the short layout when present) ---
+  story?: CaseStory;
 };
 
 // ordered strongest-proof first (matches the /work grid)
@@ -264,15 +330,100 @@ export const workCases: WorkCase[] = [
   {
     slug: "expatria",
     client: "Expatria",
-    title: "From relocation provider to enterprise mobility partner",
-    disciplines: ["Brand", "Venture"],
-    market: "India, Singapore",
+    title: "Into a new market, without starting from zero",
+    disciplines: ["Brand", "Media", "Venture"],
+    market: "India to Singapore",
     asset: "Expatria new identity",
-    color: "#2b2f45",
+    image: "/images/work/expatria-logo.png",
+    imageFit: "contain",
+    color: "#ffffff",
     summary: "[One paragraph on what the work moved for Expatria.]",
     challenge: "[What was stuck before we started.]",
     approach: ["[What we did — step one]", "[Step two]", "[Step three]"],
     result: "[Verified result]",
+    story: {
+      label: "Case study · Expatria · Global mobility · India to Singapore",
+      headlinePre: "Into a new market,",
+      headlineAccent: "without starting from zero.",
+      intro:
+        "Expatria helps people and organisations relocate across borders. We repositioned the brand for enterprise buyers, built a growth engine in India, then used an existing partner network to open Singapore.",
+      heroCaption: "Expatria rebrand — hero",
+      facts: [
+        { label: "Client", value: "Expatria" },
+        { label: "Category", value: "B2B global mobility" },
+        { label: "Starting point", value: "A relocation provider, seen as a vendor" },
+        { label: "What we did", value: "Rebrand, B2B GTM, market entry" },
+      ],
+      stepper: [
+        { num: "01", label: "Reposition" },
+        { num: "02", label: "Build the engine in India" },
+        { num: "03", label: "Expand into Singapore", highlight: true },
+      ],
+      blocks: [
+        {
+          kind: "reposition",
+          tag: "01 · Reposition",
+          headline: "Stop selling moves. Start selling mobility.",
+          text: "Enterprise HR teams and relocation partners don't buy a vendor, they buy a partner they can trust with their people. The rebrand changed how Expatria looked, but more importantly, what it promised.",
+          from: "Relocation service provider",
+          to: "Enterprise global mobility partner",
+        },
+        {
+          kind: "funnel",
+          tag: "02 · Build the engine in India",
+          headline: "Give every LinkedIn conversation a place to land.",
+          text: "Visibility alone doesn't fill a pipeline. We connected LinkedIn to the website, and the website to a nurture journey, so attention turned into owned data and then into meetings.",
+          items: [
+            "LinkedIn promotes a relocation playbook",
+            "A website pop-up captures the contact",
+            "Role based email turns it into a meeting",
+          ],
+          mockCaption: "Swap for the live dev link screenshot",
+        },
+        {
+          kind: "phases",
+          tag: "03 · Expand into Singapore",
+          headline: "The fastest way into a new market is through partners already there.",
+          text: "Building market access in Singapore from scratch would have taken years. Expatria already had something better: a network of relocation partners. We turned it into a focused market entry engine.",
+          cards: [
+            {
+              title: "Prioritise",
+              text: "Ranked the partner database by Singapore relevance, account fit and partnership potential. Start with the few who matter most.",
+            },
+            {
+              title: "Activate",
+              text: "Singapore specific messaging, a four step outreach sequence and sales assets built for partner conversations, not cold pitches.",
+            },
+            {
+              title: "Convert",
+              text: "Moved engaged partners into meetings, qualified opportunities and live commercial conversations.",
+              highlight: true,
+            },
+          ],
+        },
+      ],
+      learnedTag: "What we learned",
+      learned: [
+        {
+          title: "Positioning is a sales tool.",
+          text: "Enterprise buyers decide who you are before the first call. The rebrand opened doors the old brand couldn't.",
+        },
+        {
+          title: "Own the data you earn.",
+          text: "Likes disappear. A contact you can nurture compounds. Every channel should end somewhere you control.",
+        },
+        {
+          title: "Expand through trust, not reach.",
+          text: "A warm partner beats a thousand cold prospects. New markets open faster through people already there.",
+        },
+      ],
+      closing: {
+        headline: "Expanding into a new market?",
+        line: "We position the brand, build the engine and find the fastest way in.",
+        cta: "Start a project",
+        href: "/contact",
+      },
+    },
   },
   {
     slug: "amara",
@@ -303,15 +454,97 @@ export const workCases: WorkCase[] = [
   {
     slug: "mks",
     client: "MK's",
-    title: "Finding the whitespace for a new retail category", // [editable — title was cropped in the brief]
-    disciplines: ["Venture", "Brand", "Dev"],
-    market: "India",
-    asset: "MK's storefront",
-    color: "#3a2f1f",
+    title: "A tandoori brand built from zero",
+    disciplines: ["Venture", "Brand", "Media"],
+    market: "Noida, India",
+    asset: "MK's storefront at Spectrum Metro Mall",
+    image: "/images/work/mks-logo-dark.svg",
+    imageFit: "contain",
+    color: "#ffffff",
     summary: "[One paragraph on what the work moved for MK's.]",
     challenge: "[What was stuck before we started.]",
     approach: ["[What we did — step one]", "[Step two]", "[Step three]"],
     result: "[Verified result]",
+    story: {
+      label: "Case study · MK's · QSR · Noida, India",
+      headlinePre: "Roasted, not fried.",
+      headlineAccent: "A tandoori brand built from zero.",
+      intro:
+        "MK's came to us as a recipe and a single outlet. We found the space nobody owned, built a brand to fill it, and opened its doors to a neighbourhood that was already waiting.",
+      heroCaption: "Hero: storefront at Spectrum Metro Mall, or the hero wrap shot",
+      facts: [
+        { label: "Client", value: "MK's Tandoori" },
+        { label: "Category", value: "Quick service restaurant" },
+        { label: "Starting point", value: "One outlet, zero existing demand" },
+        { label: "What we did", value: "Positioning, identity, packaging, pre-launch community, launch" },
+      ],
+      blocks: [
+        {
+          kind: "positioning",
+          cards: [
+            {
+              title: "Roadside tandoori",
+              note: "Great flavour. Low trust, low convenience.",
+            },
+            {
+              eyebrow: "Where MK's sits",
+              title: "Roasted, fast, clean, accessible",
+              note: "Slow cooked taste, served at QSR speed.",
+              highlight: true,
+            },
+            {
+              title: "Global QSR",
+              note: "Fast and clean. Fried and generic.",
+            },
+          ],
+        },
+        {
+          kind: "steps",
+          tag: "What we built",
+          headline: "One position, carried through everything a customer touches.",
+          items: [
+            {
+              title: "The proposition",
+              text: "Roasted, not fried. Slow cooked taste, served fast. A promise simple enough for a signboard and strong enough to steer every later decision.",
+            },
+            {
+              title: "Identity and packaging",
+              text: "Logo, colour, type and a packaging system built for the pass a customer touches before they taste anything.",
+            },
+            {
+              title: "The Founders Club",
+              text: "A pre launch community for the immediate catchment, with first access and launch only perks. The brand had people before it had a front door.",
+            },
+            {
+              title: "A neighbourhood launch",
+              text: "Store launch, launch combos, organic and creator content, local search and WhatsApp capture, all aimed at the nearest demand pockets first.",
+            },
+          ],
+        },
+      ],
+      learnedTag: "What we learned",
+      learned: [
+        {
+          title: "Position before you promote.",
+          text: "The first job was not media. It was deciding what MK's could own, so every rupee after that said the same thing.",
+        },
+        {
+          title: "A crowd beats a campaign.",
+          text: "People who joined early showed up early. A launch day crowd you build yourself is the first proof of habit.",
+        },
+        {
+          title: "Win the street first.",
+          text: "One outlet, the nearest demand pockets, repeat over reach. Scale is something the brand earns, not something it buys.",
+        },
+      ],
+      learnedDark: true,
+      closing: {
+        headline: "Building something from zero?",
+        line: "We find the space, build the brand and get the first crowd through the door.",
+        cta: "Start a project",
+        href: "/contact",
+      },
+    },
   },
 ];
 

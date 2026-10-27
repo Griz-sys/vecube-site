@@ -10,141 +10,437 @@ const { c } = Astro.props;
 // next case for the footer jump
 const idx = workCases.findIndex((x) => x.slug === c.slug);
 const next = workCases[(idx + 1) % workCases.length];
+const st = c.story;
+
+// hero tile: photos fill (cover); logos/marks show whole on a solid bg (contain)
+const fit = c.imageFit ?? "cover";
+const tileBg =
+  fit === "contain"
+    ? c.color ?? "var(--color-ink)"
+    : c.color
+      ? c.color + "14"
+      : "var(--color-grey-05)";
+const imgClass =
+  fit === "contain"
+    ? "h-full w-full object-contain p-6 md:p-10"
+    : "h-full w-full object-cover";
 ---
 
-<Layout
-  title={`${c.client} — Work | Vecube`}
-  description={c.title}
->
-  <!-- HEADER -->
-  <section class="py-8 md:py-12">
-    <div class="wrap">
-      <a href="/work" class="btn-tertiary inline-flex items-center text-[0.95rem] font-semibold lowercase">
-        <span class="arw mr-1">←</span> <span class="txt">all work</span>
-      </a>
+<Layout title={`${c.client} — Work | Vecube`} description={c.title}>
+  {
+    st ? (
+      <Fragment>
+        <!-- ================= LONG-FORM CASE STUDY ================= -->
 
-      <div class="mt-8 flex flex-wrap items-center gap-2">
-        {
-          c.disciplines.map((d) => (
-            <span class="rounded-full bg-grey-05 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-60">
-              {d}
-            </span>
-          ))
-        }
-        {c.market && (
-          <span class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">{c.market}</span>
+        <!-- HERO -->
+        <section class="pt-8 pb-10 md:pt-12 md:pb-14">
+          <div class="wrap">
+            <a href="/work" class="btn-tertiary inline-flex items-center text-[0.95rem] font-semibold lowercase">
+              <span class="arw mr-1">←</span> <span class="txt">all work</span>
+            </a>
+
+            <p class="mt-8 font-mono text-xs uppercase tracking-[0.14em] text-grey-40">{st.label}</p>
+            <h1 class="h-display mt-5 max-w-[16ch] text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.92]">
+              {st.headlinePre} <span class="text-blue">{st.headlineAccent}</span>
+            </h1>
+            <p class="mt-7 max-w-[60ch] text-lg leading-relaxed text-grey-60 md:text-xl">{st.intro}</p>
+          </div>
+        </section>
+
+        <!-- HERO TILE -->
+        <section class="pb-12 md:pb-16">
+          <div class="wrap">
+            <div
+              class="flex aspect-[16/9] items-center justify-center overflow-hidden rounded-[28px] border border-grey-10"
+              style={`background:${tileBg}`}
+            >
+              {c.image ? (
+                <img src={c.image} alt={c.asset} class={imgClass} />
+              ) : (
+                <span class="px-6 text-center font-mono text-xs uppercase tracking-[0.12em] text-grey-40">
+                  [ {st.heroCaption ?? c.asset} ]
+                </span>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <!-- FACTS -->
+        <section class="pb-14 md:pb-20">
+          <div class="wrap grid grid-cols-1 gap-y-6 border-t border-grey-10 pt-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-10">
+            {st.facts.map((f) => (
+              <div>
+                <p class="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-grey-40">{f.label}</p>
+                <p class="mt-2 max-w-[22ch] font-medium leading-snug text-ink">{f.value}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- STEPPER -->
+        {st.stepper && (
+          <section class="pb-12 md:pb-16">
+            <div class="wrap flex flex-wrap gap-3">
+              {st.stepper.map((s) => (
+                <span
+                  class:list={[
+                    "inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium",
+                    s.highlight ? "bg-ink text-cream" : "border border-grey-10 bg-grey-05 text-grey-60",
+                  ]}
+                >
+                  <span class:list={["font-mono", s.highlight ? "text-neon" : "text-grey-40"]}>{s.num}</span>
+                  {s.label}
+                </span>
+              ))}
+            </div>
+          </section>
         )}
-      </div>
 
-      <p class="mt-6 font-mono text-xs uppercase tracking-[0.12em] text-grey-40">{c.client}</p>
-      <h1 class="h-display mt-2 max-w-[20ch] text-[clamp(2.25rem,6vw,5rem)]">{c.title}</h1>
-    </div>
-  </section>
+        <!-- STORY BLOCKS -->
+        {st.blocks.map((b) => (
+          <Fragment>
+            {/* 3-up positioning map */}
+            {b.kind === "positioning" && (
+              <section class="pb-16 md:pb-24">
+                <div class="wrap grid grid-cols-1 items-stretch gap-4 md:grid-cols-3">
+                  {b.cards.map((card) =>
+                    card.highlight ? (
+                      <div class="flex flex-col justify-center rounded-[22px] bg-ink p-7 text-cream">
+                        {card.eyebrow && <p class="label" style="color:var(--color-neon)">{card.eyebrow}</p>}
+                        <p class="h-display mt-3 text-2xl leading-tight md:text-[1.7rem]">{card.title}</p>
+                        <p class="mt-3 text-cream/70">{card.note}</p>
+                      </div>
+                    ) : (
+                      <div class="flex flex-col justify-center rounded-[22px] border border-grey-10 bg-grey-05 p-7">
+                        <p class="h-display text-xl md:text-2xl">{card.title}</p>
+                        <p class="mt-3 text-grey-60">{card.note}</p>
+                      </div>
+                    )
+                  )}
+                </div>
+              </section>
+            )}
 
-  <!-- HERO TILE -->
-  <section class="pb-14 md:pb-20">
-    <div class="wrap">
-      <div
-        class="flex aspect-[16/9] items-center justify-center overflow-hidden rounded-[28px] border border-grey-10"
-        style={`background:${c.color ? c.color + "14" : "var(--color-grey-05)"}`}
-      >
-        {
-          c.image ? (
-            <img src={c.image} alt={c.asset} class="h-full w-full object-cover" />
-          ) : (
-            <span class="px-6 text-center font-mono text-xs uppercase tracking-[0.12em] text-grey-40">
-              [ asset: {c.asset} ]
-            </span>
-          )
-        }
-      </div>
-    </div>
-  </section>
+            {/* numbered columns on light */}
+            {b.kind === "steps" && (
+              <section class="border-t border-grey-10 py-16 md:py-24">
+                <div class="wrap">
+                  <span class="label">{b.tag}</span>
+                  <h2 class="h-display mt-4 max-w-[20ch] text-[clamp(2rem,5vw,3.75rem)] leading-[0.95]">
+                    {b.headline}
+                  </h2>
+                  <ol class="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+                    {b.items.map((it, i) => (
+                      <li class="border-t-2 border-ink pt-4">
+                        <span class="font-mono text-sm font-bold text-blue-dk">{String(i + 1).padStart(2, "0")}</span>
+                        <h3 class="h-display mt-3 text-xl">{it.title}</h3>
+                        <p class="mt-2 text-grey-60 leading-relaxed">{it.text}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </section>
+            )}
 
-  <!-- STORY -->
-  <section class="pb-16 md:pb-24">
-    <div class="wrap grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-[1fr_1.4fr]">
-      <!-- left: at a glance -->
-      <aside class="lg:sticky lg:top-32 self-start">
-        <h2 class="label">At a glance</h2>
-        <dl class="mt-5 divide-y divide-grey-10 border-y border-grey-10">
-          <div class="flex items-baseline justify-between gap-6 py-3">
-            <dt class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">Client</dt>
-            <dd class="text-right font-medium">{c.client}</dd>
-          </div>
-          <div class="flex items-baseline justify-between gap-6 py-3">
-            <dt class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">Disciplines</dt>
-            <dd class="text-right font-medium">{c.disciplines.join(", ")}</dd>
-          </div>
-          {c.market && (
-            <div class="flex items-baseline justify-between gap-6 py-3">
-              <dt class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">Market</dt>
-              <dd class="text-right font-medium">{c.market}</dd>
-            </div>
-          )}
-          {c.result && (
-            <div class="flex items-baseline justify-between gap-6 py-3">
-              <dt class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">Result</dt>
-              <dd class="text-right font-bold text-blue-dk">{c.result}</dd>
-            </div>
-          )}
-        </dl>
-      </aside>
+            {/* reposition: copy + FROM → TO */}
+            {b.kind === "reposition" && (
+              <section class="border-t border-grey-10 py-16 md:py-24">
+                <div class="wrap grid grid-cols-1 gap-x-12 gap-y-10 lg:grid-cols-2 lg:items-center">
+                  <div>
+                    {b.tag && <span class="label">{b.tag}</span>}
+                    <h2 class="h-display mt-4 max-w-[16ch] text-[clamp(2rem,5vw,3.5rem)] leading-[0.95]">
+                      {b.headline}
+                    </h2>
+                    <p class="mt-5 max-w-[48ch] text-lg leading-relaxed text-grey-60">{b.text}</p>
+                  </div>
+                  <div class="space-y-4">
+                    <div class="flex items-center gap-5 rounded-[18px] border border-grey-10 bg-grey-05 p-6">
+                      <span class="label flex-none text-grey-40">From</span>
+                      <span class="h-display text-lg md:text-xl">{b.from}</span>
+                    </div>
+                    <div class="flex items-center gap-5 rounded-[18px] bg-ink p-6 text-cream">
+                      <span class="label flex-none" style="color:var(--color-neon)">To</span>
+                      <span class="h-display text-lg md:text-xl">{b.to}</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            )}
 
-      <!-- right: narrative -->
-      <div class="max-w-[62ch]">
-        {c.summary && <p class="text-xl leading-relaxed text-ink md:text-2xl">{c.summary}</p>}
+            {/* funnel: copy + ordered mini-list, device mock */}
+            {b.kind === "funnel" && (
+              <section class="border-t border-grey-10 py-16 md:py-24">
+                <div class="wrap grid grid-cols-1 gap-x-12 gap-y-10 lg:grid-cols-2 lg:items-center">
+                  <div>
+                    {b.tag && <span class="label">{b.tag}</span>}
+                    <h2 class="h-display mt-4 max-w-[16ch] text-[clamp(2rem,5vw,3.5rem)] leading-[0.95]">
+                      {b.headline}
+                    </h2>
+                    <p class="mt-5 max-w-[46ch] text-lg leading-relaxed text-grey-60">{b.text}</p>
+                    <ol class="mt-8 space-y-4">
+                      {b.items.map((it, i) => (
+                        <li class="flex items-center gap-4">
+                          <span
+                            class:list={[
+                              "flex h-8 w-8 flex-none items-center justify-center rounded-full font-mono text-sm font-bold",
+                              i === 1 ? "bg-neon text-ink" : "border border-grey-20 text-grey-60",
+                            ]}
+                          >
+                            {i + 1}
+                          </span>
+                          <span class:list={[i === 1 ? "font-bold text-ink" : "text-grey-60"]}>{it}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                  <div>
+                    <div class="overflow-hidden rounded-[18px] border border-grey-10 bg-grey-05 shadow-[0_24px_60px_-30px_rgba(10,10,10,0.5)]">
+                      <div class="flex items-center gap-1.5 border-b border-grey-10 px-4 py-3">
+                        <span class="h-2.5 w-2.5 rounded-full bg-grey-20" />
+                        <span class="h-2.5 w-2.5 rounded-full bg-grey-20" />
+                        <span class="h-2.5 w-2.5 rounded-full bg-grey-20" />
+                      </div>
+                      <div class="grid grid-cols-1 sm:grid-cols-[0.85fr_1.15fr]">
+                        <div class="flex items-start bg-ink p-6">
+                          <span class="label" style="color:var(--color-neon)">Free playbook</span>
+                        </div>
+                        <div class="p-6">
+                          <p class="h-display text-lg leading-tight">Moving people to India? Get the playbook.</p>
+                          <div class="mt-4 space-y-2.5">
+                            <div class="rounded-lg border border-grey-10 bg-cream px-3 py-2.5 text-sm text-grey-40">
+                              you@company.com
+                            </div>
+                            <div class="rounded-lg border border-grey-10 bg-cream px-3 py-2.5 text-sm text-grey-40">
+                              I am a: HR team
+                            </div>
+                            <div class="rounded-lg bg-neon px-3 py-2.5 text-center text-sm font-bold text-ink">
+                              Send me the playbook
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {b.mockCaption && (
+                      <p class="mt-3 text-center font-mono text-[0.62rem] uppercase tracking-[0.12em] text-grey-40">
+                        [ {b.mockCaption} ]
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </section>
+            )}
 
-        {
-          c.challenge && (
-            <div class="mt-12">
-              <h3 class="h-display text-2xl">the challenge</h3>
-              <p class="mt-3 text-lg leading-relaxed text-grey-60">{c.challenge}</p>
-            </div>
-          )
-        }
+            {/* dark phase cards */}
+            {b.kind === "phases" && (
+              <section class="bg-ink py-16 text-cream md:py-24">
+                <div class="wrap">
+                  {b.tag && <span class="label" style="color:rgba(251,243,234,0.55)">{b.tag}</span>}
+                  <h2 class="h-display mt-4 max-w-[22ch] text-[clamp(2rem,5vw,3.75rem)] leading-[0.95]">
+                    {b.headline}
+                  </h2>
+                  <p class="mt-5 max-w-[62ch] text-lg leading-relaxed text-cream/70">{b.text}</p>
+                  <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+                    {b.cards.map((card, i) => (
+                      <div
+                        class:list={[
+                          "rounded-[20px] p-7",
+                          card.highlight ? "bg-lavender text-ink" : "bg-white/[0.04] ring-1 ring-white/10",
+                        ]}
+                      >
+                        <span class:list={["h-display text-3xl", card.highlight ? "text-ink" : "text-lavender"]}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <h3 class="h-display mt-3 text-xl">{card.title}</h3>
+                        <p class:list={["mt-2 leading-relaxed", card.highlight ? "text-ink/70" : "text-cream/65"]}>
+                          {card.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+          </Fragment>
+        ))}
 
-        {
-          c.approach && c.approach.length > 0 && (
-            <div class="mt-12">
-              <h3 class="h-display text-2xl">how we worked</h3>
-              <ol class="mt-4 space-y-3">
-                {c.approach.map((step, i) => (
-                  <li class="flex gap-4">
-                    <span class="font-mono text-sm text-blue-dk">{String(i + 1).padStart(2, "0")}</span>
-                    <span class="text-lg leading-relaxed text-grey-60">{step}</span>
-                  </li>
+        <!-- WHAT WE LEARNED -->
+        {st.learnedDark ? (
+          <section class="bg-ink py-16 text-cream md:py-24">
+            <div class="wrap">
+              <span class="label" style="color:rgba(251,243,234,0.55)">{st.learnedTag}</span>
+              <div class="mt-10 grid grid-cols-1 gap-10 md:grid-cols-3">
+                {st.learned.map((l) => (
+                  <div>
+                    <h3 class="h-display text-2xl">{l.title}</h3>
+                    <p class="mt-3 text-cream/70 leading-relaxed">{l.text}</p>
+                  </div>
                 ))}
-              </ol>
+              </div>
             </div>
-          )
-        }
-
-        {
-          c.result && (
-            <div class="mt-12 rounded-[20px] bg-grey-05 p-7">
-              <h3 class="label">the result</h3>
-              <p class="h-display mt-2 text-3xl text-ink">{c.result}</p>
+          </section>
+        ) : (
+          <section class="border-t border-grey-10 py-16 md:py-24">
+            <div class="wrap">
+              <span class="label">{st.learnedTag}</span>
+              <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-10 md:grid-cols-3">
+                {st.learned.map((l) => (
+                  <div class="border-t-2 border-ink pt-5">
+                    <h3 class="h-display text-xl md:text-2xl">{l.title}</h3>
+                    <p class="mt-3 text-grey-60 leading-relaxed">{l.text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          )
-        }
-      </div>
-    </div>
-  </section>
+          </section>
+        )}
 
-  <!-- NEXT CASE -->
-  <section class="border-t border-grey-10 py-14">
-    <div class="wrap flex flex-wrap items-end justify-between gap-6">
-      <div>
-        <span class="label">Next case</span>
-        <a href={`/work/${next.slug}`} class="group mt-2 block">
-          <h2 class="h-display text-3xl md:text-4xl">{next.client}</h2>
-          <p class="mt-1 max-w-[40ch] text-grey-60">{next.title}</p>
-        </a>
-      </div>
-      <a class="btn btn-primary" href={wp.closing.href}>
-        {wp.closing.cta} <span class="arw">→</span>
-      </a>
-    </div>
-  </section>
+        <!-- CLOSING CTA -->
+        <section class="border-t border-grey-10 py-16 md:py-20">
+          <div class="wrap flex flex-wrap items-end justify-between gap-8">
+            <div>
+              <h2 class="h-display max-w-[16ch] text-[clamp(2.25rem,6vw,4rem)] leading-[0.95]">
+                {st.closing.headline}
+              </h2>
+              <p class="mt-5 max-w-[46ch] text-lg leading-snug text-grey-60">{st.closing.line}</p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <a class="btn btn-primary" href={st.closing.href}>
+                {st.closing.cta} <span class="arw">→</span>
+              </a>
+              <a
+                class="btn border-2 border-grey-10 text-ink hover:border-ink"
+                href={`/work/${next.slug}`}
+              >
+                next case: {next.client} <span class="arw">→</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <!-- ================= SHORT CASE (fallback) ================= -->
+
+        <!-- HEADER -->
+        <section class="py-8 md:py-12">
+          <div class="wrap">
+            <a href="/work" class="btn-tertiary inline-flex items-center text-[0.95rem] font-semibold lowercase">
+              <span class="arw mr-1">←</span> <span class="txt">all work</span>
+            </a>
+
+            <div class="mt-8 flex flex-wrap items-center gap-2">
+              {c.disciplines.map((d) => (
+                <span class="rounded-full bg-grey-05 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-60">
+                  {d}
+                </span>
+              ))}
+              {c.market && (
+                <span class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">{c.market}</span>
+              )}
+            </div>
+
+            <p class="mt-6 font-mono text-xs uppercase tracking-[0.12em] text-grey-40">{c.client}</p>
+            <h1 class="h-display mt-2 max-w-[20ch] text-[clamp(2.25rem,6vw,5rem)]">{c.title}</h1>
+          </div>
+        </section>
+
+        <!-- HERO TILE -->
+        <section class="pb-14 md:pb-20">
+          <div class="wrap">
+            <div
+              class="flex aspect-[16/9] items-center justify-center overflow-hidden rounded-[28px] border border-grey-10"
+              style={`background:${c.color ? c.color + "14" : "var(--color-grey-05)"}`}
+            >
+              {c.image ? (
+                <img src={c.image} alt={c.asset} class="h-full w-full object-cover" />
+              ) : (
+                <span class="px-6 text-center font-mono text-xs uppercase tracking-[0.12em] text-grey-40">
+                  [ asset: {c.asset} ]
+                </span>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <!-- STORY -->
+        <section class="pb-16 md:pb-24">
+          <div class="wrap grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-[1fr_1.4fr]">
+            <aside class="lg:sticky lg:top-32 self-start">
+              <h2 class="label">At a glance</h2>
+              <dl class="mt-5 divide-y divide-grey-10 border-y border-grey-10">
+                <div class="flex items-baseline justify-between gap-6 py-3">
+                  <dt class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">Client</dt>
+                  <dd class="text-right font-medium">{c.client}</dd>
+                </div>
+                <div class="flex items-baseline justify-between gap-6 py-3">
+                  <dt class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">Disciplines</dt>
+                  <dd class="text-right font-medium">{c.disciplines.join(", ")}</dd>
+                </div>
+                {c.market && (
+                  <div class="flex items-baseline justify-between gap-6 py-3">
+                    <dt class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">Market</dt>
+                    <dd class="text-right font-medium">{c.market}</dd>
+                  </div>
+                )}
+                {c.result && (
+                  <div class="flex items-baseline justify-between gap-6 py-3">
+                    <dt class="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-grey-40">Result</dt>
+                    <dd class="text-right font-bold text-blue-dk">{c.result}</dd>
+                  </div>
+                )}
+              </dl>
+            </aside>
+
+            <div class="max-w-[62ch]">
+              {c.summary && <p class="text-xl leading-relaxed text-ink md:text-2xl">{c.summary}</p>}
+
+              {c.challenge && (
+                <div class="mt-12">
+                  <h3 class="h-display text-2xl">the challenge</h3>
+                  <p class="mt-3 text-lg leading-relaxed text-grey-60">{c.challenge}</p>
+                </div>
+              )}
+
+              {c.approach && c.approach.length > 0 && (
+                <div class="mt-12">
+                  <h3 class="h-display text-2xl">how we worked</h3>
+                  <ol class="mt-4 space-y-3">
+                    {c.approach.map((step, i) => (
+                      <li class="flex gap-4">
+                        <span class="font-mono text-sm text-blue-dk">{String(i + 1).padStart(2, "0")}</span>
+                        <span class="text-lg leading-relaxed text-grey-60">{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+
+              {c.result && (
+                <div class="mt-12 rounded-[20px] bg-grey-05 p-7">
+                  <h3 class="label">the result</h3>
+                  <p class="h-display mt-2 text-3xl text-ink">{c.result}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <!-- NEXT CASE -->
+        <section class="border-t border-grey-10 py-14">
+          <div class="wrap flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <span class="label">Next case</span>
+              <a href={`/work/${next.slug}`} class="group mt-2 block">
+                <h2 class="h-display text-3xl md:text-4xl">{next.client}</h2>
+                <p class="mt-1 max-w-[40ch] text-grey-60">{next.title}</p>
+              </a>
+            </div>
+            <a class="btn btn-primary" href={wp.closing.href}>
+              {wp.closing.cta} <span class="arw">→</span>
+            </a>
+          </div>
+        </section>
+      </Fragment>
+    )
+  }
 </Layout>
